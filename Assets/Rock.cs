@@ -9,8 +9,8 @@ public class Rock : MonoBehaviour
     [SerializeField] private float rockRadius;
     [SerializeField] private float rockSmoothSpeed;
     [Space]
-    [SerializeField] private GameObject rockOrbitDotPrefab;
-    [SerializeField] private int rockOrbitDotsCount;
+    [SerializeField] private GameObject rockOrbitalDotPrefab;
+    [SerializeField] private int rockOrbitalDotsCount;
     [Space]
     [SerializeField] private bool pointAwayFromPlayer;
     [SerializeField] private bool hasRandomTumbleSpeed;
@@ -18,13 +18,13 @@ public class Rock : MonoBehaviour
 
     private Vector3 rockVelocity;
     private float tumbleSpeed;
-    private List<GameObject> orbitDots;
+    private List<GameObject> orbitalDots;
 
     private float radians = 0f;
 
     private void Awake()
     {
-        orbitDots = new();
+        orbitalDots = new();
 
         if (hasRandomTumbleSpeed)
         {
@@ -38,7 +38,7 @@ public class Rock : MonoBehaviour
 
     private void Start()
     {
-        RefreshOrbitDots();
+        RefreshOrbitalDots();
     }
 
     private void Update()
@@ -63,15 +63,20 @@ public class Rock : MonoBehaviour
         return Mathf.Atan2(a.y - b.y, a.x - b.x) * Mathf.Rad2Deg;
     }
 
-    public void RefreshOrbitDots()
+    public void RemoveOrbitalDots()
     {
-        orbitDots.ForEach(go => Destroy(go));
 
-        for (int i = 0; i < rockOrbitDotsCount; i++)
+    }
+
+    public void RefreshOrbitalDots()
+    {
+        orbitalDots.ForEach(go => Destroy(go));
+
+        for (int i = 0; i < rockOrbitalDotsCount; i++)
         {
-            float step = 2 * Mathf.PI * ((float)i / rockOrbitDotsCount - 1);
+            float step = 2 * Mathf.PI * ((float)i / rockOrbitalDotsCount - 1);
             Vector2 orbitDotPos = new Vector3(Mathf.Cos(step), Mathf.Sin(step)) * rockRadius;
-            orbitDots.Add(Instantiate(rockOrbitDotPrefab, orbitDotPos, Quaternion.identity, player));
+            orbitalDots.Add(Instantiate(rockOrbitalDotPrefab, orbitDotPos, Quaternion.identity, player));
         }
     }
 }

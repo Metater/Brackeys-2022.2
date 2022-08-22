@@ -1020,14 +1020,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 842686692}
-  rockSpeed: -2
-  rockRadius: 2
+  rockSpeed: -4
+  rockRadius: 2.31
   rockSmoothSpeed: 0.075
-  rockOrbitDotPrefab: {fileID: 6431270719013633815, guid: 3b26618fa537843489a771c90c371670, type: 3}
-  rockOrbitDotsCount: 32
+  rockOrbitalDotPrefab: {fileID: 6431270719013633815, guid: 3b26618fa537843489a771c90c371670, type: 3}
+  rockOrbitalDotsCount: 32
   pointAwayFromPlayer: 0
   hasRandomTumbleSpeed: 0
-  tubleSpeedRange: {x: -150, y: 0}
+  tubleSpeedRange: {x: -180, y: 0}
 --- !u!1 &1632520799
 GameObject:
   m_ObjectHideFlags: 0
