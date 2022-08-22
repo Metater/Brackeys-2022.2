@@ -7,6 +7,7 @@ public class RockOrbital : MonoBehaviour
     [SerializeField] private float radius;
     [SerializeField] private float velocity;
     [SerializeField] private int orbitalDotsCount;
+    [SerializeField] private GameObject orbitalDotPrefab;
 
     public EphemeralMultipliers RadiusMultipliers { get; private set; }
     public EphemeralMultipliers VelocityMultipliers { get; private set; }
@@ -46,7 +47,7 @@ public class RockOrbital : MonoBehaviour
         {
             float step = 2 * Mathf.PI * ((float)i / orbitalDotsCount - 1);
             Vector2 orbitalDotPos = new Vector3(Mathf.Cos(step), Mathf.Sin(step)) * radius;
-            orbitalDots.Add(Instantiate(rockOrbitalDotPrefab, orbitalDotPos, Quaternion.identity, player));
+            orbitalDots.Add(Instantiate(orbitalDotPrefab, orbitalDotPos, Quaternion.identity, transform));
         }
     }
 }

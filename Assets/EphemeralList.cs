@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class EphemeralList<T>
@@ -10,27 +12,31 @@ public class EphemeralList<T>
         this.defaultExpiryTime = defaultExpiryTime;
     }
 
-    public Add(T reference, float expiryTime = 0)
+    public void Add(T reference, float expiryTime = 0)
     {
         if (expiryTime == 0)
         {
             expiryTime = defaultExpiryTime;
         }
 
-        references.Add((reference, expiryTime));
+        References.Add((reference, expiryTime));
     }
 
-    public void Poll(Action<T> expiryCallback)
+    public void Poll(Action<T> callback = null, Action<T> expiryCallback = null)
     {
         float time = Time.time;
-        references.RemoveAll((var reference, var expiryTime) =>
+        References.RemoveAll(((T reference, float expiryTime) i) =>
         {
-            if (time >= expiryTime)
+            if (time >= i.expiryTime)
             {
-                expiryCallback?.Invoke(reference);
+                expiryCallback?.Invoke(i.reference);
                 return true;
             }
-            return false;
+            else
+            {
+                callback?.Invoke(i.reference);
+                return false;
+            }
         });
     }
 }

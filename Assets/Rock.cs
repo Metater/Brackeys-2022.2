@@ -28,11 +28,11 @@ public class Rock : MonoBehaviour
 
         if (hasRandomTumbleSpeed)
         {
-            tumbleSpeed = Random.Range(tubleSpeedRange.x, tubleSpeedRange.y);
+            tumbleSpeed = Random.Range(tumbleSpeedRange.x, tumbleSpeedRange.y);
         }
         else
         {
-            tumbleSpeed = tubleSpeedRange.x;
+            tumbleSpeed = tumbleSpeedRange.x;
         }
     }
 
