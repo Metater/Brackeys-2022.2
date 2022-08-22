@@ -14,7 +14,7 @@ public class Rock : MonoBehaviour
     [Space]
     [SerializeField] private bool pointAwayFromPlayer;
     [SerializeField] private bool hasRandomTumbleSpeed;
-    [SerializeField] private Vector2 tubleSpeedRange;
+    [SerializeField] private Vector2 tumbleSpeedRange;
 
     private Vector3 rockVelocity;
     private float tumbleSpeed;
@@ -61,11 +61,6 @@ public class Rock : MonoBehaviour
     private float AngleBetweenTwoPoints(Vector3 a, Vector3 b)
     {
         return Mathf.Atan2(a.y - b.y, a.x - b.x) * Mathf.Rad2Deg;
-    }
-
-    public void RemoveOrbitalDots()
-    {
-
     }
 
     public void RefreshOrbitalDots()

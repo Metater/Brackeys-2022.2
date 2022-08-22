@@ -7,6 +7,8 @@ public class Controller : MonoBehaviour
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private float speed;
 
+    [SerializeField] private List<RockOrbital> orbitals;
+
     private void Start()
     {
 
