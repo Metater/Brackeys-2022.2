@@ -6,6 +6,7 @@ public class RockOrbital : MonoBehaviour
 {
     [SerializeField] private float radius;
     [SerializeField] private float velocity;
+    [SerializeField] private int capacity;
     [SerializeField] private int orbitalDotsCount;
     [SerializeField] private GameObject orbitalDotPrefab;
 
