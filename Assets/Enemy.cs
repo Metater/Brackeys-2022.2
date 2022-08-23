@@ -28,10 +28,22 @@ public abstract class Enemy : MonoBehaviour
         }
     }
 
-    protected virtual void OnRockEnter(Rock rock);
-    protected virtual void OnRockStay(Rock rock);
-    protected virtual void OnRockExit(Rock rock);
-    protected virtual void OnDie();
+    protected virtual void OnRockEnter(Rock rock)
+    {
+
+    }
+    protected virtual void OnRockStay(Rock rock)
+    {
+
+    }
+    protected virtual void OnRockExit(Rock rock)
+    {
+
+    }
+    protected virtual void OnDie()
+    {
+
+    }
 
     private void OnTriggerEnter2D(Collider2D collider)
     {

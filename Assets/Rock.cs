@@ -41,11 +41,23 @@ public abstract class Rock : MonoBehaviour
         Orbital = null;
     }
 
-    public virtual void OnEnemyEnter(Enemy enemy);
-    public virtual void OnEnemyStay(Enemy enemy);
-    public virtual void OnEnemyExit(Enemy enemy);
+    public virtual void OnEnemyEnter(Enemy enemy)
+    {
 
-    protected virtual void InternalUpdate();
+    }
+    public virtual void OnEnemyStay(Enemy enemy)
+    {
+
+    }
+    public virtual void OnEnemyExit(Enemy enemy)
+    {
+
+    }
+
+    protected virtual void InternalUpdate()
+    {
+
+    }
 
     private void Update()
     {

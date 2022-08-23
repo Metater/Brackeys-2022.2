@@ -1,8 +1,10 @@
-public class BalboaRock : Rock
+using UnityEngine;
+
+public class BasicRock : Rock
 {
     [SerializeField] private float damagePerSecond;
 
-    protected override void OnEnemyStay(Enemy enemy)
+    public override void OnEnemyStay(Enemy enemy)
     {
         enemy.Damage(Time.deltaTime * damagePerSecond);
     }
