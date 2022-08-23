@@ -21,7 +21,7 @@ public class EphemeralMultipliers
         multipliers.Poll((multiplier, time) =>
         {
             product *= multiplier(time);
-        });
+        });*/
         return product;
     }
 }

@@ -6,7 +6,7 @@ public class BasicSpiderAI : MonoBehaviour
 {
 
     public int health;
-
+    [SerializeField] GameObject deathParticles;
 
     GameObject player;
     // Start is called before the first frame update
@@ -23,6 +23,8 @@ public class BasicSpiderAI : MonoBehaviour
 
         if(health <= 0)
         {
+
+            Instantiate(deathParticles,this.transform.position, this.transform.rotation);
             Destroy(this.gameObject);
         }
 
