@@ -103,7 +103,7 @@ MonoBehaviour:
   hasRandomTumbleSpeed: 1
   tumbleSpeedRange: {x: -180, y: -120}
   dragRadius: 0.41666666
-  damagePerSecond: 1
+  damage: 2
 --- !u!58 &3626499120431161152
 CircleCollider2D:
   m_ObjectHideFlags: 0

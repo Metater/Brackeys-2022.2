@@ -2,10 +2,10 @@ using UnityEngine;
 
 public class BasicRock : Rock
 {
-    [SerializeField] private float damagePerSecond;
+    [SerializeField] private float damage;
 
-    public override void OnEnemyStay(Enemy enemy)
+    public override void OnEnemyEnter(Enemy enemy, Collider2D collider)
     {
-        enemy.Damage(Time.deltaTime * damagePerSecond);
+        enemy.Damage(damage);
     }
 }
