@@ -18,10 +18,10 @@ public class EphemeralMultipliers
     public float GetProduct(float operand = 1f)
     {
         float product = operand;
-        multipliers.Poll(multiplier, time =>
+        /*multipliers.Poll(multiplier, time =>
         {
             product *= multiplier(time);
-        });
+        });*/
         return product;
     }
 }
