@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Rock : MonoBehaviour
+public abstract class Rock : MonoBehaviour
 {
-    [SerializeField] private Transform player;
-    [SerializeField] private bool hasTumble;
-    [SerializeField] private bool hasRandomTumbleSpeed;
-    [SerializeField] private Vector2 tumbleSpeedRange;
+    [SerializeField] protected Transform player;
+    [SerializeField] protected bool hasTumble;
+    [SerializeField] protected bool hasRandomTumbleSpeed;
+    [SerializeField] protected Vector2 tumbleSpeedRange;
 
     [System.NonSerialized] public Vector3 velocity;
 
@@ -23,6 +23,9 @@ public class Rock : MonoBehaviour
     public void Init(Transform player)
     {
         this.player = player;
+
+        TumbleSpeedMultipliers = new();
+        tumbleSpeed = hasRandomTumbleSpeed ? Random.Range(tumbleSpeedRange.x, tumbleSpeedRange.y) : tumbleSpeedRange.x;
     }
 
     public void SetOrbital(RockOrbital orbital)
@@ -38,14 +41,20 @@ public class Rock : MonoBehaviour
         Orbital = null;
     }
 
-    private void Awake()
-    {
-        TumbleSpeedMultipliers = new();
+    public virtual void OnEnemyEnter(Enemy enemy);
+    public virtual void OnEnemyStay(Enemy enemy);
+    public virtual void OnEnemyExit(Enemy enemy);
 
-        tumbleSpeed = hasRandomTumbleSpeed ? Random.Range(tumbleSpeedRange.x, tumbleSpeedRange.y) : tumbleSpeedRange.x;
-    }
+    protected virtual void InternalUpdate();
 
     private void Update()
+    {
+        InternalUpdate();
+
+        UpdateRotation();
+    }
+
+    private void UpdateRotation()
     {
         if (!IsGrounded)
         {
@@ -55,7 +64,7 @@ public class Rock : MonoBehaviour
             }
             else
             {
-                var angle = AngleBetweenTwoPoints(transform.position, player.position);
+                var angle = Utils.AngleBetweenTwoPoints(transform.position, player.position);
                 transform.localEulerAngles = new Vector3(0f, 0f, angle - 90f);
             }
         }
@@ -63,10 +72,5 @@ public class Rock : MonoBehaviour
         {
             transform.localEulerAngles = Vector3.zero;
         }
-    }
-
-    private float AngleBetweenTwoPoints(Vector3 a, Vector3 b)
-    {
-        return Mathf.Atan2(a.y - b.y, a.x - b.x) * Mathf.Rad2Deg;
     }
 }
