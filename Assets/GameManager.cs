@@ -130,7 +130,7 @@ public class GameManager : MonoBehaviour
     {
         for (int i = 0; i < rocksCount; i++)
         {
-            var rock = Instantiate(rockPrefabs[0], player.transform.position, Quaternion.identity, transform);
+            var rock = Instantiate(rockPrefabs[0], player.transform.position, Quaternion.identity);
             rock.Init(player);
             rock.SetOrbital(orbitals[0]);
         }
