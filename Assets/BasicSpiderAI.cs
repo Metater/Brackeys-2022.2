@@ -20,6 +20,12 @@ public class BasicSpiderAI : MonoBehaviour
     {
         transform.up = player.transform.position - transform.position;
         this.transform.position = Vector3.MoveTowards(transform.position, player.transform.position, 0.015f);
+
+        if(health <= 0)
+        {
+            Destroy(this.gameObject);
+        }
+
     }
 
 
@@ -27,6 +33,7 @@ public class BasicSpiderAI : MonoBehaviour
     {
         if (collision.CompareTag("Rock"))
         {
+            Debug.Log("Collided");
             AttackStats attack = collision.GetComponent<AttackStats>();
             health -= attack.damage;
         }
