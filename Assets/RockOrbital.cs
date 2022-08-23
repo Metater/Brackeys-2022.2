@@ -83,8 +83,14 @@ public class RockOrbital : MonoBehaviour
         }
     }
 
-    public float GetRadius() => RadiusMultipliers.GetProduct(radius);
-    public float GetVelocity() => VelocityMultipliers.GetProduct(velocity);
+    public float GetRadius()
+    {
+        return RadiusMultipliers.GetProduct(radius);
+    }
+    public float GetVelocity()
+    {
+        return VelocityMultipliers.GetProduct(velocity);
+    }
 
     public void Add(Rock rock)
     {
