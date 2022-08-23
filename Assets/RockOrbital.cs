@@ -48,8 +48,8 @@ public class RockOrbital : MonoBehaviour
 
     private void Update()
     {
-        float processedRadius = RadiusMultipliers.GetProduct(radius);
-        float processedVelocity = VelocityMultipliers.GetProduct(velocity);
+        float processedRadius = GetRadius();
+        float processedVelocity = GetVelocity();
 
         if (cachedRadius != radius || cachedOrbitalDotsCount != orbitalDotsCount || cachedDotsPerUnitOfArc != unitsOfArcPerDot)
         {
@@ -82,6 +82,9 @@ public class RockOrbital : MonoBehaviour
             orbitalDots.Add(Instantiate(orbitalDotPrefab, orbitalDotPos, Quaternion.identity, transform));
         }
     }
+
+    public float GetRadius() => RadiusMultipliers.GetProduct(radius);
+    public float GetVelocity() => VelocityMultipliers.GetProduct(velocity);
 
     public void Add(Rock rock)
     {

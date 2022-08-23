@@ -10,10 +10,10 @@ public class Rock : MonoBehaviour
     [SerializeField] private Vector2 tumbleSpeedRange;
 
     [System.NonSerialized] public Vector3 velocity;
-    [System.NonSerialized] public bool isGrounded = false;
 
     public float dragRadius;
 
+    public bool IsGrounded { get; private set; } = false;
     public RockOrbital Orbital { get; private set; } = null;
 
     public EphemeralMultipliers TumbleSpeedMultipliers { get; private set; }
@@ -27,13 +27,14 @@ public class Rock : MonoBehaviour
 
     public void SetOrbital(RockOrbital orbital)
     {
-        isGrounded = false;
+        IsGrounded = false;
         Orbital = orbital;
+        orbital.Add(this);
     }
 
     public void SetGrounded()
     {
-        isGrounded = true;
+        IsGrounded = true;
         Orbital = null;
     }
 
@@ -46,7 +47,7 @@ public class Rock : MonoBehaviour
 
     private void Update()
     {
-        if (!isGrounded)
+        if (!IsGrounded)
         {
             if (hasTumble)
             {

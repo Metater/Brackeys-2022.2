@@ -6,6 +6,8 @@ public class Player : MonoBehaviour
 {
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private float speed;
+    [SerializeField] private float orbitalSelectionRadiusRange;
+    [SerializeField] private float rockDroppableMaxScale;
 
     [SerializeField] private List<Rock> rockPrefabs;
 
@@ -37,11 +39,11 @@ public class Player : MonoBehaviour
             AddRocks();
         }
 
-        if (selectedRock == null && Input.GetMouseButtonDown(0) && GetSelectedRockAndOrbital(out var rock, out var orbital))
+        if (selectedRock == null && Input.GetMouseButtonDown(0) && GetSelectedRock(out var rock))
         {
-            if (orbital is not null)
+            if (!rock.IsGrounded)
             {
-                orbital.Remove(rock);
+                rock.Orbital.Remove(rock);
             }
 
             selectedRock = rock;
@@ -60,33 +62,53 @@ public class Player : MonoBehaviour
         }
     }
 
-    private bool GetSelectedRockAndOrbital(out Rock rock, out RockOrbital orbital)
+    private bool GetSelectedOrbital(out RockOrbital orbital)
+    {
+        orbital = null;
+
+        var cursorWorldPos = GetCursorWorldPosition();
+
+        foreach (var o in orbitals)
+        {
+            var distance = Vector2.Distance(transform.position, cursorWorldPos);
+            var radius = o.GetRadius();
+            if (distance >= Mathf.Max(0, radius - orbitalSelectionRadiusRange) && distance <= radius + orbitalSelectionRadiusRange)
+            {
+                orbital = o;
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private bool GetSelectedRock(out Rock rock)
     {
         rock = null;
-        orbital = null;
+
+        var cursorWorldPos = GetCursorWorldPosition();
 
         foreach (var o in orbitals)
         {
             foreach (var r in o.rocks)
             {
-                var cursorWorldPos = GetCursorWorldPosition();
                 if (Vector2.Distance(r.transform.position, cursorWorldPos) <= r.dragRadius)
                 {
                     rock = r;
-                    orbital = o;
                     return true;
                 }
             }
         }
+
         foreach (var r in groundedRocks)
         {
-            var cursorWorldPos = GetCursorWorldPosition();
             if (Vector2.Distance(r.transform.position, cursorWorldPos) <= r.dragRadius)
             {
                 rock = r;
                 return true;
             }
         }
+
         return false;
     }
 
@@ -97,7 +119,6 @@ public class Player : MonoBehaviour
             var rock = Instantiate(rockPrefabs[0], Vector3.zero, Quaternion.identity, transform);
             rock.Init(transform);
             rock.SetOrbital(orbitals[0]);
-            orbitals[0].Add(rock);
         }
     }
 
