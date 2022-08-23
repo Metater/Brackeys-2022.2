@@ -858,7 +858,7 @@ MonoBehaviour:
   orbitalSelectionRadiusRange: 0.5
   rockDroppableMaxScale: 1.5
   rockPrefabs:
-  - {fileID: 2822683461648253207, guid: 120dd14511cc1f146be9af1e5280dc36, type: 3}
+  - {fileID: 3169061051938940231, guid: 120dd14511cc1f146be9af1e5280dc36, type: 3}
   orbitals:
   - {fileID: 1235368397}
   rocksCount: 4
