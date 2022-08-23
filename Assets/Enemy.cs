@@ -5,22 +5,20 @@ using UnityEngine;
 public abstract class Enemy : MonoBehaviour
 {
     [SerializeField] protected Transform player;
-    [SerializeField] private float startingHealth;
+    [SerializeField] protected Rigidbody2D rb;
 
-    public float Health { get; private set; } = 0;
+    public float health = 0;
 
     public void Init(Transform player)
     {
         this.player = player;
-
-        Health = startingHealth;
     }
 
     public void Damage(float amount)
     {
-        Health -= amount;
+        health -= amount;
 
-        if (Health <= 0)
+        if (health <= 0)
         {
             // Die
             Destroy(gameObject);
@@ -28,15 +26,15 @@ public abstract class Enemy : MonoBehaviour
         }
     }
 
-    protected virtual void OnRockEnter(Rock rock)
+    protected virtual void OnRockEnter(Rock rock, Collider2D collider)
     {
 
     }
-    protected virtual void OnRockStay(Rock rock)
+    protected virtual void OnRockStay(Rock rock, Collider2D collider)
     {
 
     }
-    protected virtual void OnRockExit(Rock rock)
+    protected virtual void OnRockExit(Rock rock, Collider2D collider)
     {
 
     }
@@ -49,8 +47,8 @@ public abstract class Enemy : MonoBehaviour
     {
         if (collider.TryGetComponent(out Rock rock))
         {
-            rock.OnEnemyEnter(this);
-            OnRockEnter(rock);
+            rock.OnEnemyEnter(this, collider);
+            OnRockEnter(rock, collider);
         }
     }
 
@@ -58,8 +56,8 @@ public abstract class Enemy : MonoBehaviour
     {
         if (collider.TryGetComponent(out Rock rock))
         {
-            rock.OnEnemyStay(this);
-            OnRockStay(rock);
+            rock.OnEnemyStay(this, collider);
+            OnRockStay(rock, collider);
         }
     }
 
@@ -67,8 +65,8 @@ public abstract class Enemy : MonoBehaviour
     {
         if (collider.TryGetComponent(out Rock rock))
         {
-            rock.OnEnemyExit(this);
-            OnRockExit(rock);
+            rock.OnEnemyExit(this, collider);
+            OnRockExit(rock, collider);
         }
     }
 }
