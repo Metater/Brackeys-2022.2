@@ -17,9 +17,8 @@ public class EphemeralMultipliers
 
     public float GetProduct(float operand = 1f)
     {
-        float time = Time.time;
         float product = operand;
-        multipliers.Poll(multiplier =>
+        multipliers.Poll(multiplier, time =>
         {
             product *= multiplier(time);
         });

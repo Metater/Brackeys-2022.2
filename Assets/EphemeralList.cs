@@ -19,10 +19,10 @@ public class EphemeralList<T>
             expiryTime = defaultExpiryTime;
         }
 
-        References.Add((reference, expiryTime));
+        References.Add((reference, Time.time + expiryTime));
     }
 
-    public void Poll(Action<T> callback = null, Action<T> expiryCallback = null)
+    public void Poll(Action<T, float> callback = null, Action<T> expiryCallback = null)
     {
         float time = Time.time;
         References.RemoveAll(((T reference, float expiryTime) i) =>
@@ -34,7 +34,7 @@ public class EphemeralList<T>
             }
             else
             {
-                callback?.Invoke(i.reference);
+                callback?.Invoke(i.reference, time - i.expiryTime);
                 return false;
             }
         });
