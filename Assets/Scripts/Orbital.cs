@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RockOrbital : MonoBehaviour
+public class Orbital : MonoBehaviour
 {
     [SerializeField] private Transform player;
     [SerializeField] private float radius;
     [SerializeField] private float velocity;
+    [SerializeField] private float selectedVelocity;
     [SerializeField] private float smoothSpeed;
     [SerializeField] private int capacity;
     [SerializeField] private int orbitalDotsCount;
@@ -20,6 +21,8 @@ public class RockOrbital : MonoBehaviour
     public EphemeralMultipliers VelocityMultipliers { get; private set; }
 
     public List<Rock> rocks;
+
+    public bool isSelected = false;
 
     private List<GameObject> orbitalDots;
     private float cachedRadius;
@@ -49,7 +52,7 @@ public class RockOrbital : MonoBehaviour
     private void Update()
     {
         float processedRadius = GetRadius();
-        float processedVelocity = GetVelocity();
+        float processedVelocity = isSelected ? selectedVelocity : GetVelocity();
 
         if (cachedRadius != radius || cachedOrbitalDotsCount != orbitalDotsCount || cachedDotsPerUnitOfArc != unitsOfArcPerDot)
         {

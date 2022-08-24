@@ -14,7 +14,7 @@ public abstract class Rock : MonoBehaviour
     public float dragRadius;
 
     public bool IsGrounded { get; private set; } = false;
-    public RockOrbital Orbital { get; private set; } = null;
+    public Orbital Orbital { get; private set; } = null;
 
     public EphemeralMultipliers TumbleSpeedMultipliers { get; private set; }
 
@@ -28,7 +28,7 @@ public abstract class Rock : MonoBehaviour
         tumbleSpeed = hasRandomTumbleSpeed ? Random.Range(tumbleSpeedRange.x, tumbleSpeedRange.y) : tumbleSpeedRange.x;
     }
 
-    public void SetOrbital(RockOrbital orbital)
+    public void SetOrbital(Orbital orbital)
     {
         IsGrounded = false;
         Orbital = orbital;

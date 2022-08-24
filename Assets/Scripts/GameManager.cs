@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private List<Rock> rockPrefabs;
 
-    [SerializeField] private List<RockOrbital> orbitals;
+    [SerializeField] private List<Orbital> orbitals;
 
     [SerializeField] private int rocksCount;
 
@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
 
     private Rock selectedRock = null;
     private Vector3 selectedRockScale;
+    private Orbital selectedOrbital = null;
 
     private void Awake()
     {
@@ -33,6 +34,22 @@ public class GameManager : MonoBehaviour
             cachedRocksCount = rocksCount;
             orbitals[0].RemoveAll();
             AddRocks();
+        }
+
+        if (GetSelectedOrbital(out var orbital))
+        {
+            if (selectedOrbital is not null && selectedOrbital != orbital)
+            {
+                selectedOrbital.isSelected = false;
+            }
+
+            selectedOrbital = orbital;
+            selectedOrbital.isSelected = true;
+        }
+        else if (selectedOrbital is not null)
+        {
+            selectedOrbital.isSelected = false;
+            selectedOrbital = null;
         }
 
         if (selectedRock == null && Input.GetMouseButtonDown(0) && GetSelectedRock(out var rock))
@@ -51,7 +68,7 @@ public class GameManager : MonoBehaviour
             var cursorWorldPos = GetCursorWorldPosition();
             selectedRock.transform.position = cursorWorldPos;
 
-            if (GetSelectedOrbital(out var orbital) && orbital.Capacity >= orbital.rocks.Count + 1)
+            if (selectedOrbital is not null && selectedOrbital.Capacity >= selectedOrbital.rocks.Count + 1)
             {
                 selectedRock.transform.localScale = Vector3.Lerp(selectedRockScale, selectedRockScale * rockDroppableMaxScale, Mathf.Abs(Mathf.Sin(Time.time * 4)));
             }
@@ -62,9 +79,9 @@ public class GameManager : MonoBehaviour
         }
         else if (selectedRock != null && Input.GetMouseButtonUp(0))
         {
-            if (GetSelectedOrbital(out var orbital) && orbital.Capacity >= orbital.rocks.Count + 1)
+            if (selectedOrbital is not null && selectedOrbital.Capacity >= selectedOrbital.rocks.Count + 1)
             {
-                selectedRock.SetOrbital(orbital);
+                selectedRock.SetOrbital(selectedOrbital);
             }
             else
             {
@@ -76,7 +93,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private bool GetSelectedOrbital(out RockOrbital orbital)
+    private bool GetSelectedOrbital(out Orbital orbital)
     {
         orbital = null;
 
