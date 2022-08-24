@@ -11,6 +11,11 @@ public class RangedEnemy : Enemy
     [SerializeField] private float attackCooldown;
     [SerializeField] private float attackTime;
 
+    [SerializeField] private float turnSmoothSpeed;
+    [SerializeField] private bool hasSwerve;
+    [SerializeField] private float swerveFrequency;
+    [SerializeField] private float swerveAmplitude;
+
     // ring: min radius, max radius
     // walk towards closest point on ring
     // randomly choose direction to circle
@@ -25,7 +30,7 @@ public class RangedEnemy : Enemy
 
     private float AttackRingAverageRadius => (attackRingRadii.x + attackRingRadii.y) / 2f;
     private bool IsWithinAttackRing => Vector2.Distance(player.transform.position, transform.position);
-    private Vector2 GetCurrentAttackRingPoint => player.transform.position + (new Vector2(Mathf.Cos(radians), Mathf.Sin(radians)) * AttackRingAverageRadius);
+    private Vector2 CurrentAttackRingPoint => player.transform.position + (new Vector2(Mathf.Cos(radians), Mathf.Sin(radians)) * AttackRingAverageRadius);
 
     private float radians = 0f;
     private bool isAttackRingMovementDirectionReversed = false;
@@ -58,10 +63,20 @@ public class RangedEnemy : Enemy
             radians = GetClosestPointStepOnAttackRing();
         }
 
-        Vector2 target = GetCurrentAttackRingPoint;
+        Vector2 target = CurrentAttackRingPoint;
+        float angleToTarget = Utils.AngleBetweenTwoPoints(target, transform.position) - 90f;
+        transform.localEulerAngles = new Vector3(0f, 0f, Mathf.SmoothDampAngle(transform.localEulerAngles.z, angleToTarget, ref turnVelocity, turnSmoothSpeed));
+        Vector3 vector = hasSwerve ? (transform.up + (swerveAmplitude * Mathf.Sin(Time.time * swerveFrequency) * transform.right)).normalized : transform.up;
+        rb.AddForce(vector * GetSpeed(), ForceMode2D.Force);
 
-
+        // TODO No GetSpeed() here, just scoot radians along when you get close to the point you are aiming for.
+        // ^^^ Also account for that mechanic when attacking
         radians += (Time.deltaTime * GetSpeed() * isAttackRingMovementDirectionReversed ? -1f : 1f) / AttackRingAverageRadius;
+    }
+
+    private void Shoot()
+    {
+
     }
 
     private float GetClosestPointStepOnAttackRing()
