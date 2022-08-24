@@ -5,7 +5,11 @@ using UnityEngine;
 public class RangedEnemy : Enemy
 {
     [SerializeField] private Vector2 attackRingRadii;
-    [SerializeField] private int attackRingPoints;
+    [SerializeField] private Vector2 attackRingRadiiRandomOffsetRange;
+    [SerializeField] private float attackRingUnitsOfArcPerPoint;
+    [SerializeField] private float attackRingMovementDirectionReversalChance;
+    [SerializeField] private float attackCooldown;
+    [SerializeField] private float attackTime;
 
     // ring: min radius, max radius
     // walk towards closest point on ring
@@ -21,33 +25,51 @@ public class RangedEnemy : Enemy
 
     private float AttackRingAverageRadius => (attackRingRadii.x + attackRingRadii.y) / 2f;
     private bool IsWithinAttackRing => Vector2.Distance(player.transform.position, transform.position);
+    private Vector2 GetCurrentAttackRingPoint => player.transform.position + (new Vector2(Mathf.Cos(radians), Mathf.Sin(radians)) * AttackRingAverageRadius);
 
-    private bool hasReachedAttackRingYet = false;
     private float radians = 0f;
+    private bool isAttackRingMovementDirectionReversed = false;
 
-    private void Update()
+    private void Awake()
     {
-        if (!hasReachedAttackRingYet)
+        float attackRingRadiiRandomOffset = Random.Range(attackRingRadiiRandomOffsetRange.x, attackRingRadiiRandomOffsetRange.y);
+        attackRingRadii.x += attackRingRadiiRandomOffset;
+        attackRingRadii.y += attackRingRadiiRandomOffset;
+    }
+
+    private int fixedUpdateCount = 0;
+    private void FixedUpdate()
+    {
+        fixedUpdateCount++;
+        if (fixedUpdateCount % 50 == 0) // Once a second
         {
-            if (!IsWithinAttackRing)
+            bool shouldReverseDirection = Random.range <= attackRingMovementDirectionReversalChance;
+            if (shouldReverseDirection)
             {
-
+                isAttackRingMovementDirectionReversed = !isAttackRingMovementDirectionReversed;
             }
-            else
-            {
-
-            }
-        }
-        else
-        {
-
         }
     }
 
-    private Vector2 GetClosestPointOnAttackRing()
+    private void Update()
+    {
+        if (!IsWithinAttackRing)
+        {
+            radians = GetClosestPointStepOnAttackRing();
+        }
+
+        Vector2 target = GetCurrentAttackRingPoint;
+
+
+        radians += (Time.deltaTime * GetSpeed() * isAttackRingMovementDirectionReversed ? -1f : 1f) / AttackRingAverageRadius;
+    }
+
+    private float GetClosestPointStepOnAttackRing()
     {
         float closestPointDistance = float.MaxValue;
+        float closestPointStep = 0f;
         Vector2 closestPoint = Vector2.zero;
+        int attackRingPoints = Mathf.RoundToInt((2 * Mathf.PI * AttackRingAverageRadius) * attackRingUnitsOfArcPerPoint);
         for (int i = 0; i < attackRingPoints; i++)
         {
             float step = 2 * Mathf.PI * ((float)i / attackRingSegments - 1);
@@ -56,15 +78,11 @@ public class RangedEnemy : Enemy
             if (closestPointDistance > pointDistance)
             {
                 closestPointDistance = pointDistance;
+                closestPointStep = step;
                 closestPoint = point;
             }
         }
-        return closestPoint;
-    }
-
-    private Vector2 GetPointOnAttackRing(float step)
-    {
-        reutrn player.transform.position + (new Vector2(Mathf.Cos(step), Mathf.Sin(step)) * radius);
+        return closestPointStep;
     }
 
     protected override void OnRockEnter(Rock rock, Collider2D collider)

@@ -7,16 +7,26 @@ public abstract class Enemy : MonoBehaviour
     [SerializeField] protected Player player;
     [SerializeField] protected Rigidbody2D rb;
     [SerializeField] protected float damageCooldown;
+    [SerializeField] private float speed;
 
     public float health = 0;
 
     public bool IsCurrentlyDamagable => Time.time >= timeWhenDamagableAgain;
+
+    public EphemeralMultipliers SpeedMultipliers { get; private set; }
 
     private float timeWhenDamagableAgain = 0f;
 
     public void Init(Player player)
     {
         this.player = player;
+
+        SpeedMultipliers = new();
+    }
+
+    public float GetSpeed()
+    {
+        return SpeedMultipliers.GetProduct(speed);
     }
 
     public bool Damage(float amount)

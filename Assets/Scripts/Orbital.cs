@@ -59,7 +59,10 @@ public class Orbital : MonoBehaviour
             cachedRadius = radius;
             cachedOrbitalDotsCount = orbitalDotsCount;
             cachedDotsPerUnitOfArc = unitsOfArcPerDot;
-            orbitalDotsCount = Mathf.RoundToInt((2 * Mathf.PI * radius) * unitsOfArcPerDot);
+            if (isOrbitalDotsCountPropertionalToCircumference)
+            {
+                orbitalDotsCount = Mathf.RoundToInt((2 * Mathf.PI * radius) * unitsOfArcPerDot);
+            }
             RefreshOrbitalDots();
         }
 
