@@ -6,17 +6,28 @@ public abstract class Enemy : MonoBehaviour
 {
     [SerializeField] protected Transform player;
     [SerializeField] protected Rigidbody2D rb;
+    [SerializeField] protected float damageCooldown;
 
     public float health = 0;
+
+    public bool IsCurrentlyDamagable => Time.time >= timeWhenDamagableAgain;
+
+    private float timeWhenDamagableAgain = 0f;
 
     public void Init(Transform player)
     {
         this.player = player;
     }
 
-    public void Damage(float amount)
+    public bool Damage(float amount)
     {
+        if (!IsCurrentlyDamagable)
+        {
+            return false;
+        }
+
         health -= amount;
+        timeWhenDamagableAgain = Time.time + damageCooldown;
 
         if (health <= 0)
         {
@@ -24,6 +35,7 @@ public abstract class Enemy : MonoBehaviour
             Destroy(gameObject);
             OnDie();
         }
+        return true;
     }
 
     protected virtual void OnRockEnter(Rock rock, Collider2D collider)
@@ -47,8 +59,8 @@ public abstract class Enemy : MonoBehaviour
     {
         if (collider.TryGetComponent(out Rock rock))
         {
-            rock.OnEnemyEnter(this, collider);
             OnRockEnter(rock, collider);
+            rock.OnEnemyEnter(this, collider);
         }
     }
 
@@ -56,8 +68,8 @@ public abstract class Enemy : MonoBehaviour
     {
         if (collider.TryGetComponent(out Rock rock))
         {
-            rock.OnEnemyStay(this, collider);
             OnRockStay(rock, collider);
+            rock.OnEnemyStay(this, collider);
         }
     }
 
@@ -65,8 +77,8 @@ public abstract class Enemy : MonoBehaviour
     {
         if (collider.TryGetComponent(out Rock rock))
         {
-            rock.OnEnemyExit(this, collider);
             OnRockExit(rock, collider);
+            rock.OnEnemyExit(this, collider);
         }
     }
 }

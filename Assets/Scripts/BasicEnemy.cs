@@ -17,13 +17,15 @@ public class BasicEnemy : Enemy
     {
         float angle = Utils.AngleBetweenTwoPoints(player.position, transform.position) - 90f;
         transform.localEulerAngles = new Vector3(0f, 0f, Mathf.SmoothDampAngle(transform.localEulerAngles.z, angle, ref turnVelocity, turnSmoothSpeed));
-        //rb.AddForce((player.position - transform.position).normalized * speed, ForceMode2D.Force);
         Vector3 vector = hasSwerve ? (transform.up + (swerveAmplitude * Mathf.Sin(Time.time * swerveFrequency) * transform.right)).normalized : transform.up;
         rb.AddForce(vector * speed, ForceMode2D.Force);
     }
 
     protected override void OnRockEnter(Rock rock, Collider2D collider)
     {
-        rb.AddForce((rock.transform.position - player.position).normalized * rockRepulsion, ForceMode2D.Impulse);
+        if (IsCurrentlyDamagable)
+        {
+            rb.AddForce((rock.transform.position - player.position).normalized * rockRepulsion, ForceMode2D.Impulse);
+        }
     }
 }
