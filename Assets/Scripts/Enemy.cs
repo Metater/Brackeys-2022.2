@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class Enemy : MonoBehaviour
 {
-    [SerializeField] protected Transform player;
+    [SerializeField] protected Player player;
     [SerializeField] protected Rigidbody2D rb;
     [SerializeField] protected float damageCooldown;
 
@@ -14,7 +14,7 @@ public abstract class Enemy : MonoBehaviour
 
     private float timeWhenDamagableAgain = 0f;
 
-    public void Init(Transform player)
+    public void Init(Player player)
     {
         this.player = player;
     }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class Rock : MonoBehaviour
 {
-    [SerializeField] protected Transform player;
+    [SerializeField] protected Player player;
     [SerializeField] protected bool hasTumble;
     [SerializeField] protected bool hasRandomTumbleSpeed;
     [SerializeField] protected Vector2 tumbleSpeedRange;
@@ -20,7 +20,7 @@ public abstract class Rock : MonoBehaviour
 
     private float tumbleSpeed;
 
-    public void Init(Transform player)
+    public void Init(Player player)
     {
         this.player = player;
 
@@ -76,7 +76,7 @@ public abstract class Rock : MonoBehaviour
             }
             else
             {
-                var angle = Utils.AngleBetweenTwoPoints(transform.position, player.position);
+                var angle = Utils.AngleBetweenTwoPoints(transform.position, player.transform.position);
                 transform.localEulerAngles = new Vector3(0f, 0f, angle - 90f);
             }
         }

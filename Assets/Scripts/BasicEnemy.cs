@@ -15,8 +15,8 @@ public class BasicEnemy : Enemy
 
     private void Update()
     {
-        float angle = Utils.AngleBetweenTwoPoints(player.position, transform.position) - 90f;
-        transform.localEulerAngles = new Vector3(0f, 0f, Mathf.SmoothDampAngle(transform.localEulerAngles.z, angle, ref turnVelocity, turnSmoothSpeed));
+        float angleToTarget = Utils.AngleBetweenTwoPoints(player.transform.position, transform.position) - 90f;
+        transform.localEulerAngles = new Vector3(0f, 0f, Mathf.SmoothDampAngle(transform.localEulerAngles.z, angleToTarget, ref turnVelocity, turnSmoothSpeed));
         Vector3 vector = hasSwerve ? (transform.up + (swerveAmplitude * Mathf.Sin(Time.time * swerveFrequency) * transform.right)).normalized : transform.up;
         rb.AddForce(vector * speed, ForceMode2D.Force);
     }
@@ -25,7 +25,7 @@ public class BasicEnemy : Enemy
     {
         if (IsCurrentlyDamagable)
         {
-            rb.AddForce((rock.transform.position - player.position).normalized * rockRepulsion, ForceMode2D.Impulse);
+            rb.AddForce((rock.transform.position - player.transform.position).normalized * rockRepulsion, ForceMode2D.Impulse);
         }
     }
 }
