@@ -1463,7 +1463,7 @@ MonoBehaviour:
   - {fileID: 2355114825845253744, guid: 9422fe2d3783455439265a2446ba5d3f, type: 3}
   - {fileID: 8065592525272004475, guid: 9c9999b4de969574ebedccb0f6ef7dc1, type: 3}
   spawnRadius: 10
-  spawnPeriod: 300
+  spawnPeriod: 0.5
 --- !u!1 &1155793061
 GameObject:
   m_ObjectHideFlags: 0
