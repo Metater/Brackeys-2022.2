@@ -6,12 +6,13 @@ using TMPro;
 public class GameOverManager : MonoBehaviour
 {
     [SerializeField] TMP_Text bestWave, currentWave, leaderboard;
-
+    [SerializeField] GameObject gameOverScreen;
 
     public void GameOver()
     {
         bestWave.text = "Wave: " + PlayerPrefs.GetInt("BestWave");
         currentWave.text = "Wave: " + "";
+        gameOverScreen.SetActive(true);
     }
 
 
