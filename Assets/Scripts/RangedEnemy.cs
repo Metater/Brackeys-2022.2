@@ -11,6 +11,8 @@ public class RangedEnemy : Enemy
     [SerializeField] private float attackCooldown;
     [SerializeField] private float attackTime;
 
+    [SerializeField] private float attackRingSpeed;
+
     [SerializeField] private float rockRepulsion;
     [SerializeField] private float turnSmoothSpeed;
     [SerializeField] private bool hasSwerve;
@@ -33,10 +35,10 @@ public class RangedEnemy : Enemy
     // finish shot and set cooldown again
 
     private float AttackRingAverageRadius => (attackRingRadii.x + attackRingRadii.y) / 2f;
-    private bool IsOnAttackCooldown => Time.time - startTime % (attackCooldown + attackTime) <= attackCooldown;
+    private bool IsOnAttackCooldown => ((Time.time - startTime) % (attackCooldown + attackTime)) <= attackCooldown;
 
     private float radians = 0f;
-    private bool isAttackRingMovementDirectionReversed = false;
+    private bool isAttackRingMovementDirectionReversed;
 
     private float turnVelocity = 0f;
 
@@ -50,6 +52,8 @@ public class RangedEnemy : Enemy
         attackRingRadii.y += attackRingRadiiRandomOffset;
 
         startTime = Time.time;
+
+        isAttackRingMovementDirectionReversed = Random.value > 0.5f;
     }
 
     private int fixedUpdateCount = 0;
@@ -78,15 +82,15 @@ public class RangedEnemy : Enemy
         float angleToTarget = Utils.AngleBetweenTwoPoints(target, transform.position) - 90f;
         transform.localEulerAngles = new Vector3(0f, 0f, Mathf.SmoothDampAngle(transform.localEulerAngles.z, angleToTarget, ref turnVelocity, turnSmoothSpeed));
         Vector3 vector = hasSwerve ? (transform.up + (swerveAmplitude * Mathf.Sin(Time.time * swerveFrequency) * transform.right)).normalized : transform.up;
-        rb.AddForce(vector * GetSpeed(), ForceMode2D.Force);
 
         if (IsOnAttackCooldown)
         {
             attacked = false;
-            if (Vector2.Distance(attackRingTarget, transform.position) >= radiansPushbackDistanceThreshold)
+            rb.AddForce(vector * (IsWithinAttackRing() ? attackRingSpeed : GetSpeed()), ForceMode2D.Force);
+            if (Vector2.Distance(attackRingTarget, transform.position) <= radiansPushbackDistanceThreshold)
             {
                 float averageRadius = AttackRingAverageRadius;
-                radians += (radiansPushbackArcLength * averageRadius * (isAttackRingMovementDirectionReversed ? -1f : 1f)) / averageRadius;
+                radians += (radiansPushbackArcLength * averageRadius * (isAttackRingMovementDirectionReversed ? -1f : 1f));
             }
         }
         else

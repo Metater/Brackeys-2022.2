@@ -76,16 +76,17 @@ MonoBehaviour:
   attackRingRadii: {x: 4, y: 5}
   attackRingRadiiRandomOffsetRange: {x: -0.5, y: 1}
   attackRingUnitsOfArcPerPoint: 1
-  attackRingMovementDirectionReversalChance: 0.2
+  attackRingMovementDirectionReversalChance: 0.1
   attackCooldown: 6
   attackTime: 1.5
+  attackRingSpeed: 1
   rockRepulsion: 16
-  turnSmoothSpeed: 0.3333333
+  turnSmoothSpeed: 0.25
   hasSwerve: 1
   swerveFrequency: 6
-  swerveAmplitude: 0.75
-  radiansPushbackArcLength: 0.1
-  radiansPushbackDistanceThreshold: 0.1
+  swerveAmplitude: 0.25
+  radiansPushbackArcLength: 1
+  radiansPushbackDistanceThreshold: 1
 --- !u!58 &2355114825845253759
 CircleCollider2D:
   m_ObjectHideFlags: 0

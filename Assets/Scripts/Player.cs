@@ -16,7 +16,7 @@ public class Player : MonoBehaviour
     {
         xInput = Input.GetAxisRaw("Horizontal");
         yInput = Input.GetAxisRaw("Vertical");
-        rb.velocity = speed * new Vector3(yInput, yInput);
+        rb.velocity = speed * new Vector3(xInput, yInput);
 
         if (Input.GetKeyDown(KeyCode.Space))
         {

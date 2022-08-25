@@ -1380,7 +1380,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25de4a136e58f0c45bee42af047252d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 842686692}
+  player: {fileID: 842686693}
   orbitalSelectionRadiusRange: 0.33333334
   rockDroppableMaxScale: 1.5
   rockPrefabs:
@@ -1400,11 +1400,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fcfc6e2476cba74aa772ff0afbcebab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 842686692}
+  player: {fileID: 842686693}
   enemyPrefabs:
+  - {fileID: 2355114825845253744, guid: 9422fe2d3783455439265a2446ba5d3f, type: 3}
   - {fileID: 8065592525272004475, guid: 9c9999b4de969574ebedccb0f6ef7dc1, type: 3}
   spawnRadius: 10
-  spawnPeriod: 3
+  spawnPeriod: 300
 --- !u!1 &1235368395
 GameObject:
   m_ObjectHideFlags: 0
@@ -1449,7 +1450,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d677e61d6da53849a0825f291f27bfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 842686692}
+  player: {fileID: 842686693}
   radius: 2
   velocity: -8
   selectedVelocity: -1
