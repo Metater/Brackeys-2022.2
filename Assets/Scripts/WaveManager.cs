@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WaveManager : MonoBehaviour
 {
-    [SerializeField] private Transform player;
+    [SerializeField] private Player player;
 
     [SerializeField] private List<Enemy> enemyPrefabs;
 
@@ -20,7 +20,8 @@ public class WaveManager : MonoBehaviour
             timer += spawnPeriod;
 
             float radians = Random.Range(0f, 2 * Mathf.PI);
-            var enemy = Instantiate(enemyPrefabs[0], new Vector3(Mathf.Cos(radians), Mathf.Sin(radians)) * spawnRadius, Quaternion.identity);
+            Vector3 spawnPos = player.transform.position + new Vector3(Mathf.Cos(radians), Mathf.Sin(radians)) * spawnRadius;
+            var enemy = Instantiate(enemyPrefabs[0], spawnPos, Quaternion.identity);
             enemy.Init(player);
         }
 

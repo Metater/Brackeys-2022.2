@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class BasicEnemy : Enemy
 {
-    [SerializeField] private float speed;
     [SerializeField] private float rockRepulsion;
     [SerializeField] private float turnSmoothSpeed;
     [SerializeField] private bool hasSwerve;
@@ -15,17 +14,17 @@ public class BasicEnemy : Enemy
 
     private void Update()
     {
-        float angle = Utils.AngleBetweenTwoPoints(player.position, transform.position) - 90f;
-        transform.localEulerAngles = new Vector3(0f, 0f, Mathf.SmoothDampAngle(transform.localEulerAngles.z, angle, ref turnVelocity, turnSmoothSpeed));
+        float angleToTarget = Utils.AngleBetweenTwoPoints(player.transform.position, transform.position) - 90f;
+        transform.localEulerAngles = new Vector3(0f, 0f, Mathf.SmoothDampAngle(transform.localEulerAngles.z, angleToTarget, ref turnVelocity, turnSmoothSpeed));
         Vector3 vector = hasSwerve ? (transform.up + (swerveAmplitude * Mathf.Sin(Time.time * swerveFrequency) * transform.right)).normalized : transform.up;
-        rb.AddForce(vector * speed, ForceMode2D.Force);
+        rb.AddForce(vector * GetSpeed(), ForceMode2D.Force);
     }
 
     protected override void OnRockEnter(Rock rock, Collider2D collider)
     {
         if (IsCurrentlyDamagable)
         {
-            rb.AddForce((rock.transform.position - player.position).normalized * rockRepulsion, ForceMode2D.Impulse);
+            rb.AddForce((rock.transform.position - player.transform.position).normalized * rockRepulsion, ForceMode2D.Impulse);
         }
     }
 }

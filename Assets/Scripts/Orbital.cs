@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Orbital : MonoBehaviour
 {
-    [SerializeField] private Transform player;
+    [SerializeField] private Player player;
     [SerializeField] private float radius;
     [SerializeField] private float velocity;
     [SerializeField] private float selectedVelocity;
@@ -59,7 +59,10 @@ public class Orbital : MonoBehaviour
             cachedRadius = radius;
             cachedOrbitalDotsCount = orbitalDotsCount;
             cachedDotsPerUnitOfArc = unitsOfArcPerDot;
-            orbitalDotsCount = Mathf.RoundToInt((2 * Mathf.PI * radius) * unitsOfArcPerDot);
+            if (isOrbitalDotsCountPropertionalToCircumference)
+            {
+                orbitalDotsCount = Mathf.RoundToInt((2 * Mathf.PI * radius) * unitsOfArcPerDot);
+            }
             RefreshOrbitalDots();
         }
 
@@ -69,7 +72,7 @@ public class Orbital : MonoBehaviour
             Rock rock = rocks[i];
             float offset = rocks.Count <= 1 ? 0 : 2 * Mathf.PI * ((float)i / rocks.Count - 1);
             float processedRadians = radians + offset;
-            Vector3 pos = player.position + (new Vector3(Mathf.Cos(processedRadians), Mathf.Sin(processedRadians)) * processedRadius);
+            Vector3 pos = player.transform.position + (new Vector3(Mathf.Cos(processedRadians), Mathf.Sin(processedRadians)) * processedRadius);
             rock.transform.position = Vector3.SmoothDamp(rock.transform.position, pos, ref rock.velocity, smoothSpeed);
         }
     }

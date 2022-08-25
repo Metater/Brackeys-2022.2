@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private Transform player;
+    [SerializeField] private Player player;
     [SerializeField] private float orbitalSelectionRadiusRange = 0.5f;
     [SerializeField] private float rockDroppableMaxScale = 1.5f;
 
@@ -101,7 +101,7 @@ public class GameManager : MonoBehaviour
 
         foreach (var o in orbitals)
         {
-            var distance = Vector2.Distance(player.position, cursorWorldPos);
+            var distance = Vector2.Distance(player.transform.position, cursorWorldPos);
             var radius = o.GetRadius();
             if (distance >= Mathf.Max(0, radius - orbitalSelectionRadiusRange) && distance <= radius + orbitalSelectionRadiusRange)
             {
