@@ -20,7 +20,7 @@ public class WaveManager : MonoBehaviour
             timer += spawnPeriod;
 
             float radians = Random.Range(0f, 2 * Mathf.PI);
-            Vector3 spawnPos = player.position + new Vector3(Mathf.Cos(radians), Mathf.Sin(radians)) * spawnRadius;
+            Vector3 spawnPos = player.transform.position + new Vector3(Mathf.Cos(radians), Mathf.Sin(radians)) * spawnRadius;
             var enemy = Instantiate(enemyPrefabs[0], spawnPos, Quaternion.identity);
             enemy.Init(player);
         }

@@ -11,10 +11,14 @@ public class RangedEnemy : Enemy
     [SerializeField] private float attackCooldown;
     [SerializeField] private float attackTime;
 
+    [SerializeField] private float rockRepulsion;
     [SerializeField] private float turnSmoothSpeed;
     [SerializeField] private bool hasSwerve;
     [SerializeField] private float swerveFrequency;
     [SerializeField] private float swerveAmplitude;
+
+    [SerializeField] private float radiansPushbackArcLength;
+    [SerializeField] private float radiansPushbackDistanceThreshold;
 
     // ring: min radius, max radius
     // walk towards closest point on ring
@@ -29,17 +33,23 @@ public class RangedEnemy : Enemy
     // finish shot and set cooldown again
 
     private float AttackRingAverageRadius => (attackRingRadii.x + attackRingRadii.y) / 2f;
-    private bool IsWithinAttackRing => Vector2.Distance(player.transform.position, transform.position);
-    private Vector2 CurrentAttackRingPoint => player.transform.position + (new Vector2(Mathf.Cos(radians), Mathf.Sin(radians)) * AttackRingAverageRadius);
+    private bool IsOnAttackCooldown => Time.time - startTime % (attackCooldown + attackTime) <= attackCooldown;
 
     private float radians = 0f;
     private bool isAttackRingMovementDirectionReversed = false;
+
+    private float turnVelocity = 0f;
+
+    private float startTime = 0f;
+    private bool attacked = false;
 
     private void Awake()
     {
         float attackRingRadiiRandomOffset = Random.Range(attackRingRadiiRandomOffsetRange.x, attackRingRadiiRandomOffsetRange.y);
         attackRingRadii.x += attackRingRadiiRandomOffset;
         attackRingRadii.y += attackRingRadiiRandomOffset;
+
+        startTime = Time.time;
     }
 
     private int fixedUpdateCount = 0;
@@ -48,7 +58,7 @@ public class RangedEnemy : Enemy
         fixedUpdateCount++;
         if (fixedUpdateCount % 50 == 0) // Once a second
         {
-            bool shouldReverseDirection = Random.range <= attackRingMovementDirectionReversalChance;
+            bool shouldReverseDirection = Random.value <= attackRingMovementDirectionReversalChance;
             if (shouldReverseDirection)
             {
                 isAttackRingMovementDirectionReversed = !isAttackRingMovementDirectionReversed;
@@ -58,43 +68,67 @@ public class RangedEnemy : Enemy
 
     private void Update()
     {
-        if (!IsWithinAttackRing)
+        if (!IsWithinAttackRing())
         {
             radians = GetClosestPointStepOnAttackRing();
         }
 
-        Vector2 target = CurrentAttackRingPoint;
+        Vector2 attackRingTarget = GetPointOnAttackRing(radians);
+        Vector2 target = IsOnAttackCooldown ? attackRingTarget : player.transform.position;
         float angleToTarget = Utils.AngleBetweenTwoPoints(target, transform.position) - 90f;
         transform.localEulerAngles = new Vector3(0f, 0f, Mathf.SmoothDampAngle(transform.localEulerAngles.z, angleToTarget, ref turnVelocity, turnSmoothSpeed));
         Vector3 vector = hasSwerve ? (transform.up + (swerveAmplitude * Mathf.Sin(Time.time * swerveFrequency) * transform.right)).normalized : transform.up;
         rb.AddForce(vector * GetSpeed(), ForceMode2D.Force);
 
-        // TODO No GetSpeed() here, just scoot radians along when you get close to the point you are aiming for.
-        // ^^^ Also account for that mechanic when attacking
-        radians += (Time.deltaTime * GetSpeed() * isAttackRingMovementDirectionReversed ? -1f : 1f) / AttackRingAverageRadius;
+        if (IsOnAttackCooldown)
+        {
+            attacked = false;
+            if (Vector2.Distance(attackRingTarget, transform.position) >= radiansPushbackDistanceThreshold)
+            {
+                float averageRadius = AttackRingAverageRadius;
+                radians += (radiansPushbackArcLength * averageRadius * (isAttackRingMovementDirectionReversed ? -1f : 1f)) / averageRadius;
+            }
+        }
+        else
+        {
+            if (!attacked)
+            {
+                attacked = true;
+                Attack();
+            }
+        }
     }
 
-    private void Shoot()
+    private void Attack()
     {
 
+    }
+
+    private bool IsWithinAttackRing()
+    {
+        float distance = Vector2.Distance(player.transform.position, transform.position);
+        return distance >= attackRingRadii.x && distance <= attackRingRadii.y;
+    }
+
+    private Vector2 GetPointOnAttackRing(float step)
+    {
+        return player.transform.position + (new Vector3(Mathf.Cos(step), Mathf.Sin(step)) * AttackRingAverageRadius);
     }
 
     private float GetClosestPointStepOnAttackRing()
     {
         float closestPointDistance = float.MaxValue;
         float closestPointStep = 0f;
-        Vector2 closestPoint = Vector2.zero;
         int attackRingPoints = Mathf.RoundToInt((2 * Mathf.PI * AttackRingAverageRadius) * attackRingUnitsOfArcPerPoint);
         for (int i = 0; i < attackRingPoints; i++)
         {
-            float step = 2 * Mathf.PI * ((float)i / attackRingSegments - 1);
+            float step = 2 * Mathf.PI * ((float)i / attackRingPoints - 1);
             Vector2 point = GetPointOnAttackRing(step);
             float pointDistance = Vector2.Distance(point, transform.position);
             if (closestPointDistance > pointDistance)
             {
                 closestPointDistance = pointDistance;
                 closestPointStep = step;
-                closestPoint = point;
             }
         }
         return closestPointStep;
