@@ -211,7 +211,7 @@ MonoBehaviour:
   velocity: -8
   selectedVelocity: -1
   smoothSpeed: 0.1
-  capacity: 2
+  capacity: 8
   orbitalDotsCount: 0
   isOrbitalDotsCountPropertionalToCircumference: 1
   unitsOfArcPerDot: 1
@@ -1445,6 +1445,8 @@ MonoBehaviour:
   - {fileID: 3169061051938940231, guid: 120dd14511cc1f146be9af1e5280dc36, type: 3}
   orbitals:
   - {fileID: 1235368397}
+  - {fileID: 1155793063}
+  - {fileID: 222675119}
   rocksCount: 4
 --- !u!114 &1009989062
 MonoBehaviour:
@@ -1513,7 +1515,7 @@ MonoBehaviour:
   velocity: -8
   selectedVelocity: -1
   smoothSpeed: 0.1
-  capacity: 2
+  capacity: 4
   orbitalDotsCount: 0
   isOrbitalDotsCountPropertionalToCircumference: 1
   unitsOfArcPerDot: 1
