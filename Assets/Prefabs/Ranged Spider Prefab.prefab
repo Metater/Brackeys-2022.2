@@ -87,6 +87,7 @@ MonoBehaviour:
   swerveAmplitude: 0.25
   radiansPushbackArcLength: 1
   radiansPushbackDistanceThreshold: 1
+  projectile: {fileID: 571338048095195887, guid: 8857199370123f94e9b21a5200c10645, type: 3}
 --- !u!58 &2355114825845253759
 CircleCollider2D:
   m_ObjectHideFlags: 0

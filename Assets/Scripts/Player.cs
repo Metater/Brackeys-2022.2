@@ -18,6 +18,8 @@ public class Player : MonoBehaviour
     bool hurt = false;
     float timer;
 
+    public int money;
+
     private void Update()
     {
         xInput = Input.GetAxisRaw("Horizontal");
@@ -71,6 +73,7 @@ public class Player : MonoBehaviour
 
     }
 
+
     
     void UpdateHearts()
     {
@@ -94,13 +97,14 @@ public class Player : MonoBehaviour
             StartCoroutine(shakeCamera.Shake(.15f, .6f));
             hearts[0].SetActive(false);
             this.enabled = false;
-            rb.velocity = new Vector2(0, 0);
+            Time.timeScale = 0;
             gameOver.GameOver();
         }
     }
 
     private void Start()
     {
+        Time.timeScale = 1;
         UpdateHearts();
         OGspeed = speed;
         spriteRender = this.gameObject.GetComponent<SpriteRenderer>();

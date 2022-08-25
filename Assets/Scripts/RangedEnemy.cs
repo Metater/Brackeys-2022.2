@@ -22,6 +22,9 @@ public class RangedEnemy : Enemy
     [SerializeField] private float radiansPushbackArcLength;
     [SerializeField] private float radiansPushbackDistanceThreshold;
 
+    [SerializeField] GameObject projectile;
+
+
     // ring: min radius, max radius
     // walk towards closest point on ring
     // randomly choose direction to circle
@@ -105,7 +108,7 @@ public class RangedEnemy : Enemy
 
     private void Attack()
     {
-
+        Instantiate(projectile, transform.position,transform.rotation);
     }
 
     private bool IsWithinAttackRing()
