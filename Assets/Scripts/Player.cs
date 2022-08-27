@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using TMPro;
 public class Player : MonoBehaviour
 {
     [SerializeField] private Rigidbody2D rb;
@@ -9,16 +9,18 @@ public class Player : MonoBehaviour
     [SerializeField] ShakeCamera shakeCamera;
     [SerializeField] List<GameObject> hearts = new List<GameObject>();
     [SerializeField] GameOverManager gameOver;
-    SpriteRenderer spriteRender;
+
     int health = 3;
     private float xInput = 0f;
     private float yInput = 0f;
     public float OGspeed;
 
+    [SerializeField] GameObject damageLight;
     bool hurt = false;
     float timer;
 
     public int money;
+    [SerializeField] TMP_Text moneyText;
 
     private void Update()
     {
@@ -33,7 +35,7 @@ public class Player : MonoBehaviour
         if(timer <= 0)
         {
             hurt = false;
-            spriteRender.color = Color.blue;
+            damageLight.SetActive(false);
         }
 
     }
@@ -55,7 +57,7 @@ public class Player : MonoBehaviour
 
         if (collision.CompareTag("Enemy") && !hurt)
         {
-            spriteRender.color = Color.red;
+            damageLight.SetActive(true);
             timer = 0.5f;
             hurt = true;
             health--;
@@ -73,8 +75,11 @@ public class Player : MonoBehaviour
 
     }
 
+    private void FixedUpdate()
+    {
+        moneyText.text = money +"";
+    }
 
-    
     void UpdateHearts()
     {
         if(health == 3)
@@ -107,6 +112,5 @@ public class Player : MonoBehaviour
         Time.timeScale = 1;
         UpdateHearts();
         OGspeed = speed;
-        spriteRender = this.gameObject.GetComponent<SpriteRenderer>();
     }
 }
