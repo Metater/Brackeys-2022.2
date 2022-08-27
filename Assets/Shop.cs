@@ -12,6 +12,11 @@ public class Shop : MonoBehaviour
     [SerializeField] List<Image> shopImage = new List<Image>();
     [SerializeField] List<TMP_Text> shopDesc = new List<TMP_Text>();
     [SerializeField] List<int> rockCost = new List<int>();
+
+    [Space(20)]
+
+    [SerializeField] GameManager gameManager;
+
     public void OpenShop()
     {
         for(int i = 0; i < 3; i++)
@@ -92,33 +97,7 @@ public class Shop : MonoBehaviour
                 break;
             }
         }
-
-
-        switch (rock)
-        {
-            case 0:
-                player.money -= rockCost[0];
-                break;
-            case 1:
-                player.money -= rockCost[1];
-                break;
-            case 2:
-                player.money -= rockCost[2];
-                break;
-            case 3:
-                player.money -= rockCost[3];
-                break;
-            case 4:
-                player.money -= rockCost[4];
-                break;
-            case 5:
-                player.money -= rockCost[5];
-                break;
-            case 6:
-                player.money -= rockCost[6];
-                break;
-        }
-
+        RockSelection(rock);
 
     }
 
@@ -134,33 +113,7 @@ public class Shop : MonoBehaviour
             }
         }
 
-
-        switch (rock)
-        {
-            case 0:
-                player.money -= rockCost[0];
-                break;
-            case 1:
-                player.money -= rockCost[1];
-                break;
-            case 2:
-                player.money -= rockCost[2];
-                break;
-            case 3:
-                player.money -= rockCost[3];
-                break;
-            case 4:
-                player.money -= rockCost[4];
-                break;
-            case 5:
-                player.money -= rockCost[5];
-                break;
-            case 6:
-                player.money -= rockCost[6];
-                break;
-        }
-
-
+        RockSelection(rock);
     }
 
 
@@ -176,33 +129,67 @@ public class Shop : MonoBehaviour
             }
         }
 
+        RockSelection(rock);
 
+    }
+
+
+    void RockSelection(int rock)
+    {
         switch (rock)
         {
             case 0:
-                player.money -= rockCost[0];
+                if (player.money >= rockCost[0])
+                {
+                    player.money -= rockCost[0];
+                    gameManager.CreateRock(rock);
+                }
+                    
                 break;
             case 1:
-                player.money -= rockCost[1];
+                if(player.money>= rockCost[1])
+                {
+                    player.money -= rockCost[1];
+                    gameManager.CreateRock(rock);
+                }
+                
                 break;
             case 2:
-                player.money -= rockCost[2];
+                if (player.money >= rockCost[1])
+                {
+                    player.money -= rockCost[2];
+                    gameManager.CreateRock(rock);
+                }
                 break;
             case 3:
-                player.money -= rockCost[3];
+                if (player.money >= rockCost[1])
+                {
+                    player.money -= rockCost[3];
+                    gameManager.CreateRock(rock);
+                }
                 break;
             case 4:
-                player.money -= rockCost[4];
+                if (player.money >= rockCost[1])
+                {
+                    player.money -= rockCost[4];
+                    gameManager.CreateRock(rock);
+                }
                 break;
             case 5:
-                player.money -= rockCost[5];
+                if (player.money >= rockCost[1])
+                {
+                    player.money -= rockCost[5];
+                    gameManager.CreateRock(rock);
+                }
                 break;
             case 6:
-                player.money -= rockCost[6];
+                if (player.money >= rockCost[1])
+                {
+                    player.money -= rockCost[6];
+                    gameManager.CreateRock(rock);
+                }
                 break;
         }
-
-
     }
 
 }

@@ -21,6 +21,9 @@ public class GameManager : MonoBehaviour
     private Vector3 selectedRockScale;
     private Orbital selectedOrbital = null;
 
+    [SerializeField] List<GameObject> rockSpawnPoints = new List<GameObject>();
+
+
     private void Awake()
     {
         cachedRocksCount = rocksCount;
@@ -156,5 +159,14 @@ public class GameManager : MonoBehaviour
     private Vector2 GetCursorWorldPosition()
     {
         return Camera.main.ScreenToWorldPoint(Input.mousePosition);
+    }
+
+    public void CreateRock(int index)
+    {
+
+        var rock = Instantiate(rockPrefabs[index], rockSpawnPoints[Random.Range(0,4)].transform.position, Quaternion.identity);
+        rock.Init(player);
+
+        groundedRocks.Add(rock);
     }
 }

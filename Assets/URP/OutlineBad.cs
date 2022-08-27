@@ -6,7 +6,7 @@ using System;
 
 [Serializable, PostProcess(typeof(OutlinePostProcess), PostProcessEvent.BeforeStack, "Custom/Outline")]
 
-public sealed class Outline : PostProcessEffectSettings
+public sealed class OutlineBad : PostProcessEffectSettings
 {
     [Range(1, 5), Tooltip("Outline thickness.")]
     public IntParameter thickness = new IntParameter { value = 2 };
@@ -23,7 +23,7 @@ public sealed class Outline : PostProcessEffectSettings
 
 }
 
-public sealed class OutlinePostProcess : PostProcessEffectRenderer<Outline>
+public sealed class OutlinePostProcess : PostProcessEffectRenderer<OutlineBad>
 {
     public override void Render(PostProcessRenderContext context)
     {

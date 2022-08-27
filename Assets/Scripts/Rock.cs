@@ -11,9 +11,11 @@ public abstract class Rock : MonoBehaviour
 
     [System.NonSerialized] public Vector3 velocity;
 
+    [SerializeField] protected GameObject groundedLight;
+
     public float dragRadius;
 
-    public bool IsGrounded { get; private set; } = false;
+    public bool IsGrounded { get; private set; } = true;
     public Orbital Orbital { get; private set; } = null;
 
     public EphemeralMultipliers TumbleSpeedMultipliers { get; private set; }
@@ -70,6 +72,7 @@ public abstract class Rock : MonoBehaviour
     {
         if (!IsGrounded)
         {
+            groundedLight.SetActive(false);
             if (hasTumble)
             {
                 transform.localEulerAngles = new Vector3(0f, 0f, transform.localEulerAngles.z + (Time.deltaTime * TumbleSpeedMultipliers.GetProduct(tumbleSpeed)));
@@ -83,6 +86,7 @@ public abstract class Rock : MonoBehaviour
         else
         {
             transform.localEulerAngles = Vector3.zero;
+            groundedLight.SetActive(true);
         }
     }
 }
