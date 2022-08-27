@@ -29,6 +29,17 @@ public abstract class Enemy : MonoBehaviour
         return SpeedMultipliers.GetProduct(speed);
     }
 
+    public void DamageNoCooldown(float amount)
+    {
+        health -= amount;
+        if (health <= 0)
+        {
+            // Die
+            Destroy(gameObject);
+            OnDie();
+        }
+    }
+
     public bool Damage(float amount)
     {
         if (!IsCurrentlyDamagable)

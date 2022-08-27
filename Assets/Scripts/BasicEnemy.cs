@@ -17,7 +17,18 @@ public class BasicEnemy : Enemy
         float angleToTarget = Utils.AngleBetweenTwoPoints(player.transform.position, transform.position) - 90f;
         transform.localEulerAngles = new Vector3(0f, 0f, Mathf.SmoothDampAngle(transform.localEulerAngles.z, angleToTarget, ref turnVelocity, turnSmoothSpeed));
         Vector3 vector = hasSwerve ? (transform.up + (swerveAmplitude * Mathf.Sin(Time.time * swerveFrequency) * transform.right)).normalized : transform.up;
-        rb.AddForce(vector * GetSpeed(), ForceMode2D.Force);
+
+        float multiplier = slowUntil < Time.time ? 1 : slowMultiplier;
+        if (scaredUntil > Time.time)
+        {
+            multiplier *= -scaredMultiplier;
+        }
+        rb.AddForce(GetSpeed() * multiplier * vector, ForceMode2D.Force);
+
+        if (ignitedUntil > Time.time)
+        {
+            DamageNoCooldown(ignitedDps * Time.deltaTime);
+        }
     }
 
     protected override void OnRockEnter(Rock rock, Collider2D collider)
@@ -28,23 +39,50 @@ public class BasicEnemy : Enemy
         }
     }
 
+    //private float weakUntil = 0;
+    //private float 
+
     public override void Weakness(float time, float mutliplier)
     {
 
     }
 
+    private float slowUntil = 0;
+    private float slowMultiplier = 1f;
+
     public override void Slowness(float time, float mutliplier)
     {
-
+        float timeUntil = Time.time + time;
+        if (timeUntil > slowUntil)
+        {
+            slowUntil = timeUntil;
+            slowMultiplier = mutliplier;
+        }
     }
+
+    private float scaredUntil = 0;
+    private float scaredMultiplier = 1f;
 
     public override void Scare(float time, float mutliplier)
     {
-
+        float timeUntil = Time.time + time;
+        if (timeUntil > scaredUntil)
+        {
+            scaredUntil = timeUntil;
+            scaredMultiplier = mutliplier;
+        }
     }
+
+    private float ignitedUntil = 0;
+    private float ignitedDps = 0f;
 
     public override void Ignite(float time, float dps)
     {
-
+        float timeUntil = Time.time + time;
+        if (timeUntil > ignitedUntil)
+        {
+            ignitedUntil = timeUntil;
+            ignitedDps = dps;
+        }
     }
 }
