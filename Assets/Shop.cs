@@ -10,6 +10,7 @@ public class Shop : MonoBehaviour
     [SerializeField] List<Sprite> rockType = new List<Sprite>();
     float randomInt;
     [SerializeField] List<Image> shopImage = new List<Image>();
+    [SerializeField] List<GameObject> shopButton = new List<GameObject>();
     [SerializeField] List<TMP_Text> shopDesc = new List<TMP_Text>();
     [SerializeField] List<int> rockCost = new List<int>();
 
@@ -17,11 +18,12 @@ public class Shop : MonoBehaviour
 
     [SerializeField] GameManager gameManager;
 
-    public void OpenShop()
+    public void OpenShop()  //End of Wave CALL THIS
     {
         for(int i = 0; i < 3; i++)
         {
             CalculateShop(i);
+            shopButton[i].SetActive(true);
         }
     }
 
@@ -97,7 +99,10 @@ public class Shop : MonoBehaviour
                 break;
             }
         }
-        RockSelection(rock);
+        if (RockSelection(rock))
+        {
+            shopButton[0].SetActive(false);
+        }
 
     }
 
@@ -112,8 +117,10 @@ public class Shop : MonoBehaviour
                 break;
             }
         }
-
-        RockSelection(rock);
+        if (RockSelection(rock))
+        {
+            shopButton[1].SetActive(false);
+        }
     }
 
 
@@ -129,12 +136,15 @@ public class Shop : MonoBehaviour
             }
         }
 
-        RockSelection(rock);
+        if (RockSelection(rock))
+        {
+            shopButton[2].SetActive(false);
+        }
 
     }
 
 
-    void RockSelection(int rock)
+    bool RockSelection(int rock)
     {
         switch (rock)
         {
@@ -144,51 +154,59 @@ public class Shop : MonoBehaviour
                     player.money -= rockCost[0];
                     gameManager.CreateRock(rock);
                 }
-                    
-                break;
+                return true;
+            //break;
             case 1:
                 if(player.money>= rockCost[1])
                 {
                     player.money -= rockCost[1];
                     gameManager.CreateRock(rock);
                 }
-                
-                break;
+                return true;
+            //break;
             case 2:
                 if (player.money >= rockCost[1])
                 {
                     player.money -= rockCost[2];
                     gameManager.CreateRock(rock);
                 }
-                break;
+                return true;
+            //break;
             case 3:
                 if (player.money >= rockCost[1])
                 {
                     player.money -= rockCost[3];
                     gameManager.CreateRock(rock);
                 }
-                break;
+                return true;
+            //break;
             case 4:
                 if (player.money >= rockCost[1])
                 {
                     player.money -= rockCost[4];
                     gameManager.CreateRock(rock);
                 }
-                break;
+                return true;
+            //break;
             case 5:
                 if (player.money >= rockCost[1])
                 {
                     player.money -= rockCost[5];
                     gameManager.CreateRock(rock);
                 }
-                break;
+                return true;
+            //break;
             case 6:
                 if (player.money >= rockCost[1])
                 {
                     player.money -= rockCost[6];
                     gameManager.CreateRock(rock);
                 }
-                break;
+                return true;
+            //break;
+            default:
+                return false;
+                //break;
         }
     }
 
