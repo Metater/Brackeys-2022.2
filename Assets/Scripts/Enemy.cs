@@ -48,6 +48,15 @@ public abstract class Enemy : MonoBehaviour
         return true;
     }
 
+    // No attack / weak attack
+    public abstract void Weakness(float time, float mutliplier);
+    // Slow speed
+    public abstract void Slowness(float time, float mutliplier);
+    // Flee from player
+    public abstract void Scare(float time, float mutliplier);
+    // Take burn damage
+    public abstract void Ignite(float time, float dps);
+
     protected virtual void OnRockEnter(Rock rock, Collider2D collider)
     {
 

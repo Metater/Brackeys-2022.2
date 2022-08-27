@@ -27,4 +27,24 @@ public class BasicEnemy : Enemy
             rb.AddForce((rock.transform.position - player.transform.position).normalized * rockRepulsion, ForceMode2D.Impulse);
         }
     }
+
+    public override void Weakness(float time, float mutliplier)
+    {
+
+    }
+
+    public override void Slowness(float time, float mutliplier)
+    {
+
+    }
+
+    public override void Scare(float time, float mutliplier)
+    {
+
+    }
+
+    public override void Ignite(float time, float dps)
+    {
+
+    }
 }
