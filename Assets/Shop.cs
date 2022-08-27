@@ -11,6 +11,7 @@ public class Shop : MonoBehaviour
     float randomInt;
     [SerializeField] List<Image> shopImage = new List<Image>();
     [SerializeField] List<TMP_Text> shopDesc = new List<TMP_Text>();
+    [SerializeField] List<int> rockCost = new List<int>();
     public void OpenShop()
     {
         for(int i = 0; i < 3; i++)
@@ -96,25 +97,25 @@ public class Shop : MonoBehaviour
         switch (rock)
         {
             case 0:
-                player.money -= 2;
+                player.money -= rockCost[0];
                 break;
             case 1:
-                player.money -= 2;
+                player.money -= rockCost[1];
                 break;
             case 2:
-                player.money -= 2;
+                player.money -= rockCost[2];
                 break;
             case 3:
-                player.money -= 2;
+                player.money -= rockCost[3];
                 break;
             case 4:
-                player.money -= 2;
+                player.money -= rockCost[4];
                 break;
             case 5:
-                player.money -= 2;
+                player.money -= rockCost[5];
                 break;
             case 6:
-                player.money -= 2;
+                player.money -= rockCost[6];
                 break;
         }
 
@@ -137,25 +138,25 @@ public class Shop : MonoBehaviour
         switch (rock)
         {
             case 0:
-                player.money -= 2;
+                player.money -= rockCost[0];
                 break;
             case 1:
-                player.money -= 2;
+                player.money -= rockCost[1];
                 break;
             case 2:
-                player.money -= 2;
+                player.money -= rockCost[2];
                 break;
             case 3:
-                player.money -= 2;
+                player.money -= rockCost[3];
                 break;
             case 4:
-                player.money -= 2;
+                player.money -= rockCost[4];
                 break;
             case 5:
-                player.money -= 2;
+                player.money -= rockCost[5];
                 break;
             case 6:
-                player.money -= 2;
+                player.money -= rockCost[6];
                 break;
         }
 
@@ -179,25 +180,25 @@ public class Shop : MonoBehaviour
         switch (rock)
         {
             case 0:
-                player.money -= 2;
+                player.money -= rockCost[0];
                 break;
             case 1:
-                player.money -= 2;
+                player.money -= rockCost[1];
                 break;
             case 2:
-                player.money -= 2;
+                player.money -= rockCost[2];
                 break;
             case 3:
-                player.money -= 2;
+                player.money -= rockCost[3];
                 break;
             case 4:
-                player.money -= 2;
+                player.money -= rockCost[4];
                 break;
             case 5:
-                player.money -= 2;
+                player.money -= rockCost[5];
                 break;
             case 6:
-                player.money -= 2;
+                player.money -= rockCost[6];
                 break;
         }
 
