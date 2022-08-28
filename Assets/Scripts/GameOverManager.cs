@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 using TMPro;
 public class GameOverManager : MonoBehaviour
 {
-    [SerializeField] TMP_Text bestWave, currentWave, leaderboard;
+    [SerializeField] TMP_Text bestWave, currentWave;
     [SerializeField] GameObject gameOverScreen;
 
     public void GameOver()

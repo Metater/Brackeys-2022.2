@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using TMPro;
 public class WaveManager : MonoBehaviour
 {
     [SerializeField] private Player player;
@@ -14,7 +14,7 @@ public class WaveManager : MonoBehaviour
     [SerializeField] private List<GameObject> spawnLocations;
 
     [SerializeField] private List<Wave> waves;
-
+    [SerializeField] TMP_Text waveText;
     [Space(300f)]
 
     [SerializeField] private List<Enemy> enemyPrefabs;
@@ -62,6 +62,7 @@ public class WaveManager : MonoBehaviour
                     if (!shop.isOpen && !shoppedThisRound)
                     {
                         shop.OpenShop();
+                        player.money++;
                         shoppedThisRound = true;
                     }
                     break;
@@ -92,6 +93,7 @@ public class WaveManager : MonoBehaviour
                     state = State.Cooldown;
                     timer = waveCooldown;
                     wave++;
+                    waveText.text = "Wave: " + wave;
                     shoppedThisRound = false;
                 }
                 break;
