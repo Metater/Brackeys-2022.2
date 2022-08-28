@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] List<GameObject> rockSpawnPoints = new List<GameObject>();
 
+    [SerializeField] GameObject tutorial;
 
     private void Awake()
     {
@@ -184,4 +185,10 @@ public class GameManager : MonoBehaviour
 
         groundedRocks.Add(rock);
     }
+
+    public void CloseTutorial()
+    {
+        tutorial.SetActive(false);
+    }
+
 }
