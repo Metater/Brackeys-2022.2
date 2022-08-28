@@ -19,9 +19,12 @@ public class Shop : MonoBehaviour
 
     [SerializeField] GameManager gameManager;
 
+    public bool isOpen = false;
+
     public void OpenShop()  //End of Wave CALL THIS
     {
-        for(int i = 0; i < 3; i++)
+        isOpen = true;
+        for (int i = 0; i < 3; i++)
         {
             CalculateShop(i);
             shopButton[i].SetActive(true);
@@ -41,6 +44,7 @@ public class Shop : MonoBehaviour
 
     public void CloseShop()
     {
+        isOpen = false;
         shopAnim.SetTrigger("CloseShop");
         shopAnim.ResetTrigger("OpenShop");
     }
