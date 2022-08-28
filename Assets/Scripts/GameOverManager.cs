@@ -15,8 +15,8 @@ public class GameOverManager : MonoBehaviour
         {
             PlayerPrefs.SetInt("BestWave", waveManager.wave);
         }
-        bestWave.text = "Wave: " + PlayerPrefs.GetInt("BestWave");
-        currentWave.text = "Wave: " + waveManager.wave;
+        bestWave.text = "Best Wave: " + PlayerPrefs.GetInt("BestWave");
+        currentWave.text = "Current Wave: " + waveManager.wave;
         gameOverScreen.SetActive(true);
     }
 
