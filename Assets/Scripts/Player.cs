@@ -26,6 +26,8 @@ public class Player : MonoBehaviour
     public float rotateLerp;
     private float lastAngle = 0;
 
+    public WaveManager wave;
+
     public void GiveHeartIfNeeded()
     {
         if (health >= 3)

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ChargeEnemy : Enemy
+public class BossEnemy : Enemy
 {
     [SerializeField] private float rockRepulsion;
     [SerializeField] private float turnSmoothSpeed;
@@ -10,13 +10,30 @@ public class ChargeEnemy : Enemy
     [SerializeField] private float swerveFrequency;
     [SerializeField] private float swerveAmplitude;
 
+    [SerializeField] private float spawnCooldown;
+
     private float turnVelocity = 0f;
 
+    private float timer = 0f;
 
     private void Update()
     {
+        if (timer < 0f)
+        {
+            timer += spawnCooldown;
+            player.wave.SpawnMinion(transform.position);
+        }
+
         float angleToTarget = Utils.AngleBetweenTwoPoints(player.transform.position, transform.position) - 90f;
         transform.localEulerAngles = new Vector3(0f, 0f, Mathf.SmoothDampAngle(transform.localEulerAngles.z, angleToTarget, ref turnVelocity, turnSmoothSpeed));
+        Vector3 vector = hasSwerve ? (transform.up + (swerveAmplitude * Mathf.Sin(Time.time * swerveFrequency) * transform.right)).normalized : transform.up;
+
+        float multiplier = slowUntil < Time.time ? -1 : -slowMultiplier;
+        if (scaredUntil > Time.time)
+        {
+            multiplier *= -scaredMultiplier;
+        }
+        rb.AddForce(GetSpeed() * multiplier * vector, ForceMode2D.Force);
 
         if (ignitedUntil > Time.time)
         {

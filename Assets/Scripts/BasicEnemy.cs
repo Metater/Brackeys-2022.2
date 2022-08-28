@@ -39,14 +39,6 @@ public class BasicEnemy : Enemy
         }
     }
 
-    //private float weakUntil = 0;
-    //private float 
-
-    public override void Weakness(float time, float mutliplier)
-    {
-
-    }
-
     private float slowUntil = 0;
     private float slowMultiplier = 1f;
 

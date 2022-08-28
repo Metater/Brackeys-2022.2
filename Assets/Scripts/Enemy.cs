@@ -64,8 +64,6 @@ public abstract class Enemy : MonoBehaviour
         return true;
     }
 
-    // No attack / weak attack
-    public abstract void Weakness(float time, float mutliplier);
     // Slow speed
     public abstract void Slowness(float time, float mutliplier);
     // Flee from player

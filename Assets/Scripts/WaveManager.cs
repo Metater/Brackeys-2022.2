@@ -136,6 +136,13 @@ public class WaveManager : MonoBehaviour
         enemies.Add(e);
     }
 
+    public void SpawnMinion(Vector2 position)
+    {
+        var e = Instantiate(enemyPrefabs[0], position, Quaternion.identity);
+        e.Init(player);
+        enemies.Add(e);
+    }
+
     private List<Vector2Int> GetWave(int wave)
     {
         //float variation = GetVariation(wave);

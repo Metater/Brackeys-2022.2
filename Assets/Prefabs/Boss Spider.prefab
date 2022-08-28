@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2355114825845253698}
   - component: {fileID: 2355114825845253697}
+  - component: {fileID: 326861292368606731}
   - component: {fileID: 2355114825845253759}
   - component: {fileID: 2355114825845253758}
   m_Layer: 0
@@ -55,6 +56,29 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &326861292368606731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2355114825845253757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46b430a9e113b174f91a3e4f10b68ddd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  rb: {fileID: 2355114825845253758}
+  damageCooldown: 0.25
+  speed: 2
+  health: 30
+  rockRepulsion: 8
+  turnSmoothSpeed: 0.33333334
+  hasSwerve: 1
+  swerveFrequency: 2
+  swerveAmplitude: 1
+  spawnCooldown: 5
 --- !u!58 &2355114825845253759
 CircleCollider2D:
   m_ObjectHideFlags: 0
