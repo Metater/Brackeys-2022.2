@@ -28,7 +28,16 @@ public class GameManager : MonoBehaviour
     {
         cachedRocksCount = rocksCount;
         groundedRocks = new();
+
+
     }
+    private void Start()
+    {
+        var rock = Instantiate(rockPrefabs[0], player.transform.position, Quaternion.identity);
+        rock.Init(player);
+        rock.SetOrbital(orbitals[0]);
+    }
+
 
     private void Update()
     {
