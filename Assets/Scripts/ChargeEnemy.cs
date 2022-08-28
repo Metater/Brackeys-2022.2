@@ -13,14 +13,14 @@ public class ChargeEnemy : Enemy
     private float turnVelocity = 0f;
 
 
-    private void Update()
+    private void FixedUpdate()
     {
         float angleToTarget = Utils.AngleBetweenTwoPoints(player.transform.position, transform.position) - 90f;
         transform.localEulerAngles = new Vector3(0f, 0f, Mathf.SmoothDampAngle(transform.localEulerAngles.z, angleToTarget, ref turnVelocity, turnSmoothSpeed));
 
         if (ignitedUntil > Time.time)
         {
-            DamageNoCooldown(null, ignitedDps * Time.deltaTime);
+            DamageNoCooldown(null, ignitedDps * Time.fixedDeltaTime);
         }
     }
 

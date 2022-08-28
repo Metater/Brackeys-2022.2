@@ -71,8 +71,8 @@ MonoBehaviour:
   player: {fileID: 0}
   rb: {fileID: 8065592525272004421}
   damageCooldown: 0.25
+  speed: 12
   health: 10
-  speed: 2
   rockRepulsion: 16
   turnSmoothSpeed: 0.33333334
   hasSwerve: 1

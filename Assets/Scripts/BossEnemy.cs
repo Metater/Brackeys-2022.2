@@ -16,7 +16,7 @@ public class BossEnemy : Enemy
 
     private float timer = 0f;
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (timer <= 0f)
         {
@@ -24,7 +24,7 @@ public class BossEnemy : Enemy
             player.wave.SpawnMinion(transform.position);
         }
 
-        timer -= Time.deltaTime;
+        timer -= Time.fixedDeltaTime;
 
         float angleToTarget = Utils.AngleBetweenTwoPoints(player.transform.position, transform.position) - 90f;
         transform.localEulerAngles = new Vector3(0f, 0f, Mathf.SmoothDampAngle(transform.localEulerAngles.z, angleToTarget, ref turnVelocity, turnSmoothSpeed));
@@ -39,7 +39,7 @@ public class BossEnemy : Enemy
 
         if (ignitedUntil > Time.time)
         {
-            DamageNoCooldown(null, ignitedDps * Time.deltaTime);
+            DamageNoCooldown(null, ignitedDps * Time.fixedDeltaTime);
         }
     }
 

@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   turnSmoothSpeed: 0.3333333
-  step: 15
+  step: 10
 --- !u!61 &3359720675007006906
 BoxCollider2D:
   m_ObjectHideFlags: 0

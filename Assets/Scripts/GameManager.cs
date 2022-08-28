@@ -167,8 +167,8 @@ public class GameManager : MonoBehaviour
 
     public void WipeGroundedRocks()
     {
-        groundedRocks.ForEach(r => Destroy(r.gameObject));
-        groundedRocks.Clear();
+        //groundedRocks.ForEach(r => Destroy(r.gameObject));
+        //groundedRocks.Clear();
     }
 
     private Vector2 GetCursorWorldPosition()

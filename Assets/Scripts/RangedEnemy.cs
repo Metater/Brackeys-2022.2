@@ -60,20 +60,8 @@ public class RangedEnemy : Enemy
     }
 
     private int fixedUpdateCount = 0;
-    private void FixedUpdate()
-    {
-        fixedUpdateCount++;
-        if (fixedUpdateCount % 50 == 0) // Once a second
-        {
-            bool shouldReverseDirection = Random.value <= attackRingMovementDirectionReversalChance;
-            if (shouldReverseDirection)
-            {
-                isAttackRingMovementDirectionReversed = !isAttackRingMovementDirectionReversed;
-            }
-        }
-    }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (!IsWithinAttackRing())
         {
@@ -102,7 +90,7 @@ public class RangedEnemy : Enemy
             if (!attacked)
             {
                 attacked = true;
-                if (scaredUntil < Time.time)
+                if (scaredUntil < Time.time && Vector2.Distance(player.transform.position, transform.position) < 6.35f)
                 {
                     Attack();
                 }
@@ -111,7 +99,17 @@ public class RangedEnemy : Enemy
 
         if (ignitedUntil > Time.time)
         {
-            DamageNoCooldown(null, ignitedDps * Time.deltaTime);
+            DamageNoCooldown(null, ignitedDps * Time.fixedDeltaTime);
+        }
+
+        fixedUpdateCount++;
+        if (fixedUpdateCount % 50 == 0) // Once a second
+        {
+            bool shouldReverseDirection = Random.value <= attackRingMovementDirectionReversalChance;
+            if (shouldReverseDirection)
+            {
+                isAttackRingMovementDirectionReversed = !isAttackRingMovementDirectionReversed;
+            }
         }
     }
 
