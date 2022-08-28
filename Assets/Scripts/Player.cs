@@ -22,6 +22,10 @@ public class Player : MonoBehaviour
     public int money;
     [SerializeField] TMP_Text moneyText;
 
+    [SerializeField] GameObject sprite;
+    public float rotateLerp;
+    private float lastAngle = 0;
+
     private void Update()
     {
         xInput = Input.GetAxisRaw("Horizontal");
@@ -78,6 +82,15 @@ public class Player : MonoBehaviour
     private void FixedUpdate()
     {
         moneyText.text = money +"";
+
+        Vector2 moveDirection = rb.velocity;
+        if (moveDirection != Vector2.zero)
+        {
+            float angle = (Mathf.Atan2(moveDirection.y, moveDirection.x) * Mathf.Rad2Deg) - 90;
+            float lerpAngle = Mathf.LerpAngle(lastAngle, angle, rotateLerp);
+            sprite.transform.rotation = Quaternion.AngleAxis(lerpAngle, Vector3.forward);
+            lastAngle = lerpAngle;
+        }
     }
 
     void UpdateHearts()
