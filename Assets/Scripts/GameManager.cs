@@ -189,6 +189,7 @@ public class GameManager : MonoBehaviour
     public void CloseTutorial()
     {
         tutorial.SetActive(false);
+        player.wave.tutorialComplete = true;
     }
 
 }

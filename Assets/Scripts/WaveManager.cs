@@ -38,6 +38,8 @@ public class WaveManager : MonoBehaviour
 
     private bool shoppedThisRound = false;
 
+    public bool tutorialComplete = false;
+
     private void Awake()
     {
         enemies = new();
@@ -57,6 +59,11 @@ public class WaveManager : MonoBehaviour
 
     private void Update()
     {
+        if (!tutorialComplete)
+        {
+            return;
+        }
+
         if (Input.GetKeyDown(KeyCode.P))
         {
             wave++;
