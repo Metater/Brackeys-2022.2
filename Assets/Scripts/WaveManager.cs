@@ -63,7 +63,7 @@ public class WaveManager : MonoBehaviour
         {
             return;
         }
-
+        /*
         if (Input.GetKeyDown(KeyCode.P))
         {
             wave++;
@@ -74,7 +74,7 @@ public class WaveManager : MonoBehaviour
         {
             player.money++;
         }
-
+        */
         if (timer <= 0f)
         {
             switch (state)

@@ -35,10 +35,12 @@ public class Shop : MonoBehaviour
 
     private void Update()
     {
+        /*
         if (Input.GetKeyDown(KeyCode.KeypadEnter))
         {
             OpenShop();
         }
+        */
     }
 
 
