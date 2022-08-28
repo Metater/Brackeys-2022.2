@@ -105,11 +105,11 @@ MonoBehaviour:
   hasRandomTumbleSpeed: 1
   tumbleSpeedRange: {x: -180, y: -120}
   groundedLight: {fileID: 0}
-  dragRadius: 0.4166667
+  dragRadius: 0.62500006
   damage: 2
   scare: 3
   scareTime: 2
-  killsToLifesteal: 30
+  killsToLifesteal: 12
   killCount: 0
 --- !u!58 &3626499120431161152
 CircleCollider2D:

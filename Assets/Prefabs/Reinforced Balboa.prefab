@@ -106,7 +106,7 @@ MonoBehaviour:
   hasRandomTumbleSpeed: 1
   tumbleSpeedRange: {x: -180, y: -120}
   groundedLight: {fileID: 8340712206875245227}
-  dragRadius: 0.4166667
+  dragRadius: 0.6250001
   damage: 5
 --- !u!114 &3169061051938940231
 MonoBehaviour:

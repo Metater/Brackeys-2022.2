@@ -17,6 +17,7 @@ public class WaveManager : MonoBehaviour
     [Space(300f)]
 
     [SerializeField] TMP_Text waveText;
+    [SerializeField] TMP_Text spidersText;
 
     [SerializeField] private List<Enemy> enemyPrefabs;
 
@@ -63,6 +64,9 @@ public class WaveManager : MonoBehaviour
         {
             return;
         }
+
+        spidersText.text = "Spiders Remaining: " + enemies.Count;
+
         /*
         if (Input.GetKeyDown(KeyCode.P))
         {
@@ -83,7 +87,7 @@ public class WaveManager : MonoBehaviour
                     if (!shop.isOpen && !shoppedThisRound)
                     {
                         shop.OpenShop();
-                        player.money += Random.Range(2, 4);
+                        player.money += Random.Range(2, 6);
                         shoppedThisRound = true;
                     }
                     break;
