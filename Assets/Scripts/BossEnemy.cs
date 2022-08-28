@@ -18,11 +18,13 @@ public class BossEnemy : Enemy
 
     private void Update()
     {
-        if (timer < 0f)
+        if (timer <= 0f)
         {
             timer += spawnCooldown;
             player.wave.SpawnMinion(transform.position);
         }
+
+        timer -= Time.deltaTime;
 
         float angleToTarget = Utils.AngleBetweenTwoPoints(player.transform.position, transform.position) - 90f;
         transform.localEulerAngles = new Vector3(0f, 0f, Mathf.SmoothDampAngle(transform.localEulerAngles.z, angleToTarget, ref turnVelocity, turnSmoothSpeed));

@@ -78,7 +78,7 @@ MonoBehaviour:
   hasSwerve: 1
   swerveFrequency: 2
   swerveAmplitude: 1
-  spawnCooldown: 5
+  spawnCooldown: 12
 --- !u!58 &2355114825845253759
 CircleCollider2D:
   m_ObjectHideFlags: 0
