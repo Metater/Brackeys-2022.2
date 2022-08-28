@@ -83,7 +83,7 @@ public class WaveManager : MonoBehaviour
                     if (!shop.isOpen && !shoppedThisRound)
                     {
                         shop.OpenShop();
-                        player.money += Random.Range(1, 4);
+                        player.money += Random.Range(2, 4);
                         shoppedThisRound = true;
                     }
                     break;
