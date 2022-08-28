@@ -27,11 +27,12 @@ public class Shop : MonoBehaviour
             shopButton[i].SetActive(true);
         }
         shopAnim.SetTrigger("OpenShop");
+        shopAnim.ResetTrigger("CloseShop");
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.KeypadEnter))
         {
             OpenShop();
         }
@@ -41,7 +42,10 @@ public class Shop : MonoBehaviour
     public void CloseShop()
     {
         shopAnim.SetTrigger("CloseShop");
+        shopAnim.ResetTrigger("OpenShop");
     }
+
+
 
     void CalculateShop(int index)
     {
