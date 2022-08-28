@@ -13,7 +13,8 @@ public class Shop : MonoBehaviour
     [SerializeField] List<GameObject> shopButton = new List<GameObject>();
     [SerializeField] List<TMP_Text> shopDesc = new List<TMP_Text>();
     [SerializeField] List<int> rockCost = new List<int>();
-
+    [SerializeField] List<TMP_Text> shopCost = new List<TMP_Text>();
+    [SerializeField] Animator shopAnim;
     [Space(20)]
 
     [SerializeField] GameManager gameManager;
@@ -25,6 +26,7 @@ public class Shop : MonoBehaviour
             CalculateShop(i);
             shopButton[i].SetActive(true);
         }
+        shopAnim.SetTrigger("OpenShop");
     }
 
     private void Update()
@@ -38,7 +40,7 @@ public class Shop : MonoBehaviour
 
     public void CloseShop()
     {
-
+        shopAnim.SetTrigger("CloseShop");
     }
 
     void CalculateShop(int index)
@@ -49,41 +51,49 @@ public class Shop : MonoBehaviour
         {
             shopImage[index].sprite = rockType[0];
             shopDesc[index].text = "Basic Rock, Helpful for Wackin!";
+            shopCost[index].text = rockCost[0].ToString() + " Lint";
+
             //basic
         }else if(randomInt <= 34 && randomInt >= 20)
         {
             shopImage[index].sprite = rockType[1];
             shopDesc[index].text = "Reinforced Rock, Great tool for Extreme Beatings!";
+            shopCost[index].text = rockCost[1].ToString()+" Lint";
             //Reinforced
         }
         else if (randomInt <= 49 && randomInt >= 35)
         {
             shopImage[index].sprite = rockType[2];
             shopDesc[index].text = "A Very Sticky Rock, Wouldn't want to stay near that!";
+            shopCost[index].text = rockCost[2].ToString() + " Lint";
             //Slime
         }
         else if (randomInt <= 59 && randomInt >= 50)
         {
             shopImage[index].sprite = rockType[3];
             shopDesc[index].text = "A Flamin Rock, Now he is lookin kinda hot!";
+            shopCost[index].text = rockCost[3].ToString() + " Lint";
             //Fire
         }
         else if (randomInt <= 69 && randomInt >= 60)
         {
             shopImage[index].sprite = rockType[4];
             shopDesc[index].text = "A Chill Rock, Very slippery but might slow enemies down!";
+            shopCost[index].text = rockCost[4].ToString() + " Lint";
             //Ice
         }
         else if (randomInt <= 79 && randomInt >= 70)
         {
             shopImage[index].sprite = rockType[5];
             shopDesc[index].text = "A Shocking Rock, Might paralized some enemies for a bit!";
+            shopCost[index].text = rockCost[5].ToString() + " Lint";
             //Lightning
         }
         else if(randomInt <= 89 && randomInt >= 80)
         {
             shopImage[index].sprite = rockType[6];
             shopDesc[index].text = "A Undead Rock, Might steal some health to give you!";
+            shopCost[index].text = rockCost[6].ToString() + " Lint";
             //Vampire
         }
     }
