@@ -129,7 +129,9 @@ public class Player : MonoBehaviour
             StartCoroutine(shakeCamera.Shake(.15f, .6f));
             hearts[0].SetActive(false);
             this.enabled = false;
-            Time.timeScale = 0;
+            StopCoroutine(shakeCamera.Shake(.15f, .6f));
+            //Time.timeScale = 0;
+            
             gameOver.GameOver();
         }
     }
