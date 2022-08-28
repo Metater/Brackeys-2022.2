@@ -165,6 +165,12 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void WipeGroundedRocks()
+    {
+        groundedRocks.ForEach(r => Destroy(r.gameObject));
+        groundedRocks.Clear();
+    }
+
     private Vector2 GetCursorWorldPosition()
     {
         return Camera.main.ScreenToWorldPoint(Input.mousePosition);

@@ -14,13 +14,16 @@ public class WaveManager : MonoBehaviour
     [SerializeField] private List<GameObject> spawnLocations;
 
     [SerializeField] private List<Wave> waves;
-    [SerializeField] TMP_Text waveText;
     [Space(300f)]
+
+    [SerializeField] TMP_Text waveText;
 
     [SerializeField] private List<Enemy> enemyPrefabs;
 
     [SerializeField] private float waveCooldown;
     [SerializeField] private float spawnPeriod;
+
+    [SerializeField] private GameManager gameManager;
 
     public int wave = 0;
 
@@ -54,6 +57,17 @@ public class WaveManager : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            wave++;
+            waveText.text = "Wave: " + wave;
+        }
+
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            player.money++;
+        }
+
         if (timer <= 0f)
         {
             switch (state)
@@ -62,7 +76,7 @@ public class WaveManager : MonoBehaviour
                     if (!shop.isOpen && !shoppedThisRound)
                     {
                         shop.OpenShop();
-                        player.money++;
+                        player.money += Random.Range(1, 3);
                         shoppedThisRound = true;
                     }
                     break;
@@ -120,6 +134,7 @@ public class WaveManager : MonoBehaviour
                 {
                     // ur done, next wave
                     state = State.Shopping;
+                    gameManager.WipeGroundedRocks();
                 }
                 break;
         }
