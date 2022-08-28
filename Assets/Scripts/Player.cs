@@ -26,6 +26,17 @@ public class Player : MonoBehaviour
     public float rotateLerp;
     private float lastAngle = 0;
 
+    public void GiveHeartIfNeeded()
+    {
+        if (health >= 3)
+        {
+            return;
+        }
+
+        health++;
+        UpdateHearts();
+    }
+
     private void Update()
     {
         xInput = Input.GetAxisRaw("Horizontal");

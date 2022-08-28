@@ -55,6 +55,10 @@ public abstract class Rock : MonoBehaviour
     {
 
     }
+    public virtual void OnKill(Enemy enemy)
+    {
+
+    }
 
     protected virtual void InternalUpdate()
     {

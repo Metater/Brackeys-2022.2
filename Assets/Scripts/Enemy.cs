@@ -29,7 +29,7 @@ public abstract class Enemy : MonoBehaviour
         return SpeedMultipliers.GetProduct(speed);
     }
 
-    public void DamageNoCooldown(float amount)
+    public void DamageNoCooldown(Rock rock, float amount)
     {
         health -= amount;
         if (health <= 0)
@@ -37,10 +37,14 @@ public abstract class Enemy : MonoBehaviour
             // Die
             Destroy(gameObject);
             OnDie();
+            if (rock is not null)
+            {
+                rock.OnKill(this);
+            }
         }
     }
 
-    public bool Damage(float amount)
+    public bool Damage(Rock rock, float amount)
     {
         if (!IsCurrentlyDamagable)
         {
@@ -55,6 +59,7 @@ public abstract class Enemy : MonoBehaviour
             // Die
             Destroy(gameObject);
             OnDie();
+            rock.OnKill(this);
         }
         return true;
     }

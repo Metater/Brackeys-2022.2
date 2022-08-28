@@ -14,6 +14,6 @@ public class IceRock : Rock
     {
         enemy.Slowness(slownessTime, slowness);
         enemy.Ignite(igniteTime, ignite);
-        enemy.Damage(damage);
+        enemy.Damage(this, damage);
     }
 }

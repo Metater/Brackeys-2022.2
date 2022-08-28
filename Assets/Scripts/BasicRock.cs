@@ -6,6 +6,6 @@ public class BasicRock : Rock
 
     public override void OnEnemyEnter(Enemy enemy, Collider2D collider)
     {
-        enemy.Damage(damage);
+        enemy.Damage(this, damage);
     }
 }

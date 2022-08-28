@@ -27,7 +27,7 @@ public class BasicEnemy : Enemy
 
         if (ignitedUntil > Time.time)
         {
-            DamageNoCooldown(ignitedDps * Time.deltaTime);
+            DamageNoCooldown(null, ignitedDps * Time.deltaTime);
         }
     }
 
